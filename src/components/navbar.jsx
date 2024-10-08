@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import React from "react";
 import { colors } from "../styles";
 import pawImage from "../assets/paw.png";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ const NavLink = styled(Link)`
   }
 `;
 
-function Navbar() {
+function Navbar({ onLoginClick }) {
   return (
     <NavbarContainer>
       <NavLinks>
@@ -35,6 +36,8 @@ function Navbar() {
         <NavLink to="/uppdrag">Uppdrag</NavLink>
         <NavLink to="/jourhem">Jourhem</NavLink>
       </NavLinks>
+
+      <button onClick={onLoginClick}> Login</button>
       <img src={pawImage} alt="PAW Logo" style={{ width: "40px" }} />
     </NavbarContainer>
   );
