@@ -34,7 +34,7 @@ function Navbar({ onLoginClick }) {
       <NavLinks>
         <NavLink to="/cats">Cats</NavLink>
         <NavLink to="/missions">Missions</NavLink>
-        <NavLink to="/fosterhome">Fosterhome</NavLink>
+        <NavLink to="/foster-home">Foster home</NavLink>
       </NavLinks>
 
       <button onClick={onLoginClick}> Login</button>
