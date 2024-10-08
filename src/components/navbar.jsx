@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { colors } from "../styles";
 import pawImage from "../assets/paw.png";
+import { Link } from "react-router-dom";
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -16,7 +17,7 @@ const NavLinks = styled.div`
   gap: 2rem;
   
 `;
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   color: white;
   text-decoration: none;
   font-size: 1.1rem;
@@ -30,9 +31,9 @@ function Navbar() {
   return (
     <NavbarContainer>
       <NavLinks>
-        <NavLink href="#">Katter</NavLink>
-        <NavLink href="#">Uppdrag</NavLink>
-        <NavLink href="#">Jourhem</NavLink>
+        <NavLink to="/katter">Katter</NavLink>
+        <NavLink to="/uppdrag">Uppdrag</NavLink>
+        <NavLink to="/jourhem">Jourhem</NavLink>
       </NavLinks>
       <img src={pawImage} alt="PAW Logo" style={{ width: "40px" }} />
     </NavbarContainer>
