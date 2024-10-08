@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Global } from "@emotion/react";
 import Navbar from "./components/navbar.jsx";
@@ -7,10 +7,15 @@ import Fab from "./components/fab.jsx";
 import Katter from "./pages/katter.jsx";
 import Uppdrag from "./pages/uppdrag.jsx";
 import Jourhem from "./pages/jourhem.jsx";
+import AddCatModal from "./components/add-cat-modal.jsx";
 
 function App() {
+  const [isAddCatModalOpen, setAddCatModalOpen] = useState(false);
   const handleFabClick = () => {
-    console.log("FAB Clicked!");
+    setAddCatModalOpen(true);
+  };
+  const handleCloseAddCatModal = () => {
+    setAddCatModalOpen(false);
   };
   return (
     <div>
@@ -25,6 +30,7 @@ function App() {
         </Routes>
       </Router>
       <Fab onClick={handleFabClick} />
+      {isAddCatModalOpen && <AddCatModal onClose={handleCloseAddCatModal} />}
     </div>
   );
 }
