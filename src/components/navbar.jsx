@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { colors } from "./styles";
+import { colors } from "../styles";
+import pawImage from "../assets/paw.png";
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -26,10 +27,6 @@ const NavLink = styled.a`
     cursor: pointer;
      text-decoration: underline;
   }
-`;
-
-const NavTitle = styled.h1`
-  font-size: 1.5rem;
 `;
 
 const Dropdown = styled.div`
@@ -71,7 +68,7 @@ function Navbar() {
         <NavLink onClick={toggleKatterDropdown}>Katter</NavLink>
         <NavLink href="#">Uppdrag</NavLink>
         <NavLink href="#">Jourhem</NavLink>
-        <NavTitle>PAW</NavTitle>
+        <img src={pawImage} alt="PAW Logo" style={{ width: "40px" }} />
       </NavLinks>
       {isKatterOpen && <DropdownKatter />}
     </NavbarContainer>
