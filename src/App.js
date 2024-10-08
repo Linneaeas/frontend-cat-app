@@ -4,9 +4,9 @@ import { Global } from "@emotion/react";
 import Navbar from "./components/navbar.jsx";
 import { globalStyles } from "./styles.js";
 import Fab from "./components/fab.jsx";
-import Katter from "./pages/katter.jsx";
-import Uppdrag from "./pages/uppdrag.jsx";
-import Jourhem from "./pages/jourhem.jsx";
+import Cats from "./pages/cats.jsx";
+import Missions from "./pages/missions.jsx";
+import FosterHome from "./pages/foster-home.jsx";
 import AddCatModal from "./components/add-cat-modal.jsx";
 import LoginModal from "./components/login-modal.jsx";
 import CreateAccount from "./pages/create-account.jsx";
@@ -36,10 +36,10 @@ function App() {
       <Router>
         <Navbar onLoginClick={handleLoginClick} />
         <Routes>
-          <Route path="/" element={<Katter />} />
-          <Route path="/katter" element={<Katter />} />
-          <Route path="/uppdrag" element={<Uppdrag />} />
-          <Route path="/jourhem" element={<Jourhem />} />
+          <Route path="/" element={<Cats />} />
+          <Route path="/cats" element={<Cats />} />
+          <Route path="/missions" element={<Missions />} />
+          <Route path="/foster-home" element={<FosterHome />} />
           <Route path="/create-account" element={<CreateAccount />}></Route>
         </Routes>
       </Router>

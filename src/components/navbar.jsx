@@ -32,9 +32,9 @@ function Navbar({ onLoginClick }) {
   return (
     <NavbarContainer>
       <NavLinks>
-        <NavLink to="/katter">Katter</NavLink>
-        <NavLink to="/uppdrag">Uppdrag</NavLink>
-        <NavLink to="/jourhem">Jourhem</NavLink>
+        <NavLink to="/cats">Cats</NavLink>
+        <NavLink to="/missions">Missions</NavLink>
+        <NavLink to="/fosterhome">Fosterhome</NavLink>
       </NavLinks>
 
       <button onClick={onLoginClick}> Login</button>
