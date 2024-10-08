@@ -7,7 +7,7 @@ import Fab from "./components/fab.jsx";
 import Cats from "./pages/cats.jsx";
 import Missions from "./pages/missions.jsx";
 import FosterHome from "./pages/foster-home.jsx";
-import AddCatModal from "./components/add-cat-modal.jsx";
+import AddCatModal from "./components/AddCatModal/add-cat-modal.jsx";
 import LoginModal from "./components/login-modal.jsx";
 import CreateAccount from "./pages/create-account.jsx";
 
