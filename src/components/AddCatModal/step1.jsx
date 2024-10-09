@@ -1,37 +1,25 @@
-import { Input, StepContainer, RadioGroup, RadioLabel } from "./step-styles";
-
+import {
+  Input,
+  StepContainer,
+  RadioGroup,
+  RadioLabel,
+  PicturesLabel,
+  Select,
+} from "./step-styles";
+const outsideStatuses = [
+  "Looks healthy",
+  "Not so well taken care of",
+  "Injured or for any other reason needs help asap",
+];
+const insideStatuses = [
+  "Looks healthy",
+  "Not so well taken care of",
+  "Injured or for any other reason needs help asap",
+];
 const Step1 = ({ formData, setFormData }) => {
   return (
     <StepContainer>
-      <label>
-        Missing or Seen:
-        <RadioGroup>
-          <RadioLabel>
-            <input
-              type="radio"
-              name="missingOrSeen"
-              value="missing"
-              checked={formData.missingOrSeen === "missing"}
-              onChange={(e) =>
-                setFormData({ ...formData, missingOrSeen: e.target.value })
-              }
-            />
-            Missing
-          </RadioLabel>
-          <RadioLabel>
-            <input
-              type="radio"
-              name="missingOrSeen"
-              value="seen"
-              checked={formData.missingOrSeen === "seen"}
-              onChange={(e) =>
-                setFormData({ ...formData, missingOrSeen: e.target.value })
-              }
-            />
-            Seen
-          </RadioLabel>
-        </RadioGroup>
-      </label>
+      <h3>1</h3>
       <label>
         Headline:
         <Input
@@ -43,7 +31,7 @@ const Step1 = ({ formData, setFormData }) => {
         />
       </label>
       <label>
-        Date:
+        Date when the cat was seen/found:
         <Input
           type="date"
           value={formData.date}
@@ -51,15 +39,70 @@ const Step1 = ({ formData, setFormData }) => {
         />
       </label>
       <label>
-        Pictures:
-        <Input
-          type="text"
-          value={formData.pictures}
-          onChange={(e) =>
-            setFormData({ ...formData, pictures: e.target.value })
-          }
-        />
+        Where is the cat now?
+        <RadioGroup>
+          <RadioLabel>
+            <input
+              type="radio"
+              name="outsideOrInside"
+              value="outside"
+              checked={formData.outsideOrInside === "outside"}
+              onChange={(e) =>
+                setFormData({ ...formData, outsideOrInside: e.target.value })
+              }
+            />
+            Outside
+          </RadioLabel>
+          <RadioLabel>
+            <input
+              type="radio"
+              name="outsideOrInside"
+              value="inside"
+              checked={formData.outsideOrInside === "inside"}
+              onChange={(e) =>
+                setFormData({ ...formData, outsideOrInside: e.target.value })
+              }
+            />
+            Inside
+          </RadioLabel>
+        </RadioGroup>
       </label>
+
+      {formData.outsideOrInside === "outside" && (
+        <label>
+          Choose the best option for cat that is still outside:
+          <Select
+            value={formData.outsideStatus}
+            onChange={(e) =>
+              setFormData({ ...formData, outsideStatus: e.target.value })
+            }
+          >
+            {outsideStatuses.map((outsideStatus, index) => (
+              <option key={index} value={outsideStatus}>
+                {outsideStatus}
+              </option>
+            ))}
+          </Select>
+        </label>
+      )}
+
+      {formData.outsideOrInside === "inside" && (
+        <label>
+          Choose the best option for cat that is inside:
+          <Select
+            value={formData.insideStatus}
+            onChange={(e) =>
+              setFormData({ ...formData, insideStatus: e.target.value })
+            }
+          >
+            {insideStatuses.map((insideStatus, index) => (
+              <option key={index} value={insideStatus}>
+                {insideStatus}
+              </option>
+            ))}
+          </Select>
+        </label>
+      )}
     </StepContainer>
   );
 };

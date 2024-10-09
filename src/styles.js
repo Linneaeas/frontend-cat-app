@@ -30,7 +30,15 @@ export const globalStyles = css`
     cursor: pointer;
   }
 
+   input {
+    cursor: pointer;
+  }
+
   ul, ol {
     list-style-type: none;
+  }
+
+   h2 {
+    color: ${colors.orange};
   }
 `;

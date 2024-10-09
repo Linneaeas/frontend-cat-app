@@ -46,11 +46,14 @@ const Button = styled.button`
   margin: 0.5rem;
    background-color: ${colors.orange}; 
 `;
-
+const Headline2 = styled.h2`
+  position: absolute;  
+  top: 10px;          
+  left: 10px;
+`;
 const AddCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
-    missingOrSeen: "",
     headline: "",
     date: "",
     pictures: "",
@@ -66,8 +69,9 @@ const AddCatModal = ({ onClose }) => {
     additionalInformation: "",
     reporterEmail: "",
     publicReporterContacts: "",
-    statusOutside: "",
-    statusInside: "",
+    outsideOrInside: "outside",
+    outsideStatus: "",
+    insideStatus: "",
   });
 
   const nextStep = () => setStep((prev) => prev + 1);
@@ -82,7 +86,7 @@ const AddCatModal = ({ onClose }) => {
     <ModalOverlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>X</CloseButton>
-        <h2>Add a New Cat</h2>
+        <Headline2>Add a seen cat</Headline2>
         <form>
           {step === 0 && (
             <Step1 formData={formData} setFormData={setFormData} />
@@ -102,7 +106,7 @@ const AddCatModal = ({ onClose }) => {
         </form>
         <div>
           {step > 0 && <Button onClick={prevStep}>Previous</Button>}
-          {step < 2 ? (
+          {step < 4 ? (
             <Button onClick={nextStep}>Next</Button>
           ) : (
             <Button>Submit</Button>

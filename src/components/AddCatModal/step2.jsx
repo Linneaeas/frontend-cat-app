@@ -8,23 +8,34 @@ import {
 
 const counties = [
   "Select a county",
-  "Alameda",
-  "Los Angeles",
-  "San Diego",
-  "Santa Clara",
-  "San Francisco",
-  "Orange",
-  "Sacramento",
-  "Riverside",
-  "Fresno",
-  "Ventura",
+  "Blekinge län",
+  "Dalarnas län",
+  "Gotlands län",
+  "Gävleborgs län",
+  "Hallands län",
+  "Jämtlands län",
+  "Jönköpings län",
+  "Kalmar län",
+  "Kronobergs län",
+  "Norrbottens län",
+  "Skåne län",
+  "Stockholms län",
+  "Södermanlands län",
+  "Uppsala län",
+  "Värmlands län",
+  "Västerbottens län",
+  "Västernorrlands län",
+  "Västra götalands län",
+  "Örebro län",
+  "Östergötlands län",
 ];
 
 const Step2 = ({ formData, setFormData }) => {
   return (
     <StepContainer>
+      <h3>2</h3>
       <label>
-        County:
+        Where was the cat seen/found, Select county:
         <Select
           value={formData.county}
           onChange={(e) => setFormData({ ...formData, county: e.target.value })}
@@ -37,7 +48,7 @@ const Step2 = ({ formData, setFormData }) => {
         </Select>
       </label>
       <label>
-        Another county:
+        Choose another county where the ad should be visable(not required):
         <Select
           value={formData.anotherCounty}
           onChange={(e) =>

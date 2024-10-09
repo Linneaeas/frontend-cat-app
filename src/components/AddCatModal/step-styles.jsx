@@ -4,16 +4,17 @@ export const StepContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 1rem;
 `;
 
 export const Input = styled.input`
-  padding: 0.75rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
 `;
 export const Select = styled.select`
-  padding: 0.75rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
@@ -28,4 +29,26 @@ export const RadioGroup = styled.div`
 export const RadioLabel = styled.label`
   display: flex;
   align-items: center;
+`;
+
+export const PicturesLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const RadioColorGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; 
+`;
+
+export const RadioColorLabel = styled.label`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+`;
+
+export const RadioInput = styled.input`
+  margin-top:0.2rem;
 `;

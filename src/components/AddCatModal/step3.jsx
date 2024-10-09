@@ -4,13 +4,22 @@ import {
   RadioGroup,
   RadioLabel,
   Select,
+  PicturesLabel,
 } from "./step-styles";
 
-const ages = ["Select a age", "Kitten", "Adult", "Don't know"];
+const ages = ["Don't know", "Kitten", "Adult"];
+const genders = ["Don't know", "Male", "Female"];
+const furs = [
+  "Don't know",
+  "Shorthair",
+  "Longhair/Semilonghair",
+  "No fur/Sphynx",
+];
 
 const Step3 = ({ formData, setFormData }) => {
   return (
     <StepContainer>
+      <h3>3</h3>
       <label>
         Age:
         <Select
@@ -26,28 +35,63 @@ const Step3 = ({ formData, setFormData }) => {
       </label>
       <label>
         Gender:
-        <Input
-          type="text"
+        <Select
           value={formData.gender}
           onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-        />
+        >
+          {genders.map((gender, index) => (
+            <option key={index} value={gender}>
+              {gender}
+            </option>
+          ))}
+        </Select>
       </label>
       <label>
         Fur:
-        <Input
-          type="text"
+        <Select
           value={formData.fur}
           onChange={(e) => setFormData({ ...formData, fur: e.target.value })}
-        />
+        >
+          {furs.map((fur, index) => (
+            <option key={index} value={fur}>
+              {fur}
+            </option>
+          ))}
+        </Select>
       </label>
-      <label>
-        Color:
-        <Input
-          type="text"
-          value={formData.color}
-          onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+      <PicturesLabel>
+        Pictures:
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const files = e.target.files;
+            setFormData({ ...formData, pictures: files });
+            // const fileUrls = Array.from(files).map(file => URL.createObjectURL(file));
+            // setFormData({ ...formData, pictures: fileUrls });
+          }}
         />
-      </label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const files = e.target.files;
+            setFormData({ ...formData, pictures: files });
+            // const fileUrls = Array.from(files).map(file => URL.createObjectURL(file));
+            // setFormData({ ...formData, pictures: fileUrls });
+          }}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const files = e.target.files;
+            setFormData({ ...formData, pictures: files });
+            // const fileUrls = Array.from(files).map(file => URL.createObjectURL(file));
+            // setFormData({ ...formData, pictures: fileUrls });
+          }}
+        />
+      </PicturesLabel>
     </StepContainer>
   );
 };

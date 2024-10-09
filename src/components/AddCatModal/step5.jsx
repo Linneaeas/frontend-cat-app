@@ -1,27 +1,63 @@
+import {
+  Input,
+  StepContainer,
+  RadioGroup,
+  RadioLabel,
+  Select,
+} from "./step-styles";
+
+const reporteds = ["No", "Yes"];
+
 const Step5 = ({ formData, setFormData }) => {
   return (
-    <div>
+    <StepContainer>
+      <h3>5</h3>
       <label>
-        Choose the best option for cat that is still outside:
-        <input
-          type="text"
-          value={formData.statusOutside}
+        Police reported:
+        <Select
+          value={formData.reported}
           onChange={(e) =>
-            setFormData({ ...formData, statusOutside: e.target.value })
+            setFormData({ ...formData, reported: e.target.value })
+          }
+        >
+          {reporteds.map((reported, index) => (
+            <option key={index} value={reported}>
+              {reported}
+            </option>
+          ))}
+        </Select>
+      </label>
+      <label>
+        Additional information:
+        <Input
+          type="text"
+          value={formData.additionalInformation}
+          onChange={(e) =>
+            setFormData({ ...formData, additionalInformation: e.target.value })
           }
         />
       </label>
       <label>
-        Choose the best option for cat that is inside:
-        <input
-          type="text"
-          value={formData.statusInside}
+        Your email:
+        <Input
+          type="email"
+          value={formData.reporterEmail}
           onChange={(e) =>
-            setFormData({ ...formData, statusInside: e.target.value })
+            setFormData({ ...formData, reporterEmail: e.target.value })
           }
         />
       </label>
-    </div>
+      <label>
+        Public contact information:
+        <Input
+          type="text"
+          value={formData.publicReporterContacts}
+          onChange={(e) =>
+            setFormData({ ...formData, publicReporterContacts: e.target.value })
+          }
+        />
+      </label>
+    </StepContainer>
   );
 };
 
