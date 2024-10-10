@@ -4,12 +4,16 @@ import { Global } from "@emotion/react";
 import Navbar from "./components/navbar.jsx";
 import { globalStyles } from "./styles.js";
 import Fab from "./components/fab.jsx";
-import Cats from "./pages/cats.jsx";
-import Missions from "./pages/missions.jsx";
-import FosterHome from "./pages/foster-home.jsx";
+import Cats from "./pages/Cats/cats.jsx";
+import CatMap from "./pages/Cats/cat-map.jsx";
+import CatProfiles from "./pages/Cats/cat-profiles.jsx";
+import SuccessStories from "./pages/Cats/success-stories.jsx";
+import Missions from "./pages/Missions/missions.jsx";
+import FosterHome from "./pages/FosterHome/foster-home.jsx";
 import AddCatModal from "./components/AddCatModal/add-cat-modal.jsx";
+import HomePage from "./pages/home.jsx";
 import LoginModal from "./components/login-modal.jsx";
-import CreateAccount from "./pages/create-account.jsx";
+import CreateAccount from "./pages/Account/create-account.jsx";
 
 function App() {
   const [isAddCatModalOpen, setAddCatModalOpen] = useState(false);
@@ -36,11 +40,16 @@ function App() {
       <Router>
         <Navbar onLoginClick={handleLoginClick} />
         <Routes>
-          <Route path="/" element={<Cats />} />
+          {/* MAIN ROUTES */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/cats" element={<Cats />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/foster-home" element={<FosterHome />} />
           <Route path="/create-account" element={<CreateAccount />}></Route>
+          {/* CATEGORY ROUTES */}
+          <Route path="/cat-map" element={<CatMap />} />
+          <Route path="/cat-profiles" element={<CatProfiles />} />
+          <Route path="/success-stories" element={<SuccessStories />} />
         </Routes>
       </Router>
       <Fab onClick={handleFabClick} />

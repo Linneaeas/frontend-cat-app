@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { colors } from "../styles";
-import pawImage from "../assets/paw.png";
+import { colors } from "../../styles";
 import { Link } from "react-router-dom";
 
 const NavbarContainer = styled.nav`
@@ -20,25 +19,22 @@ const NavLinks = styled.div`
 const NavLink = styled(Link)`
   color: white;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   &:hover {
     cursor: pointer;
      text-decoration: underline;
   }
 `;
-
-function Navbar({ onLoginClick }) {
+function Cats() {
   return (
     <NavbarContainer>
       <NavLinks>
-        <NavLink to="/cats">Cats</NavLink>
-        <NavLink to="/missions">Missions</NavLink>
-        <NavLink to="/foster-home">Foster home</NavLink>
+        <NavLink to="/cat-map">Cat Map</NavLink>
+        <NavLink to="/cat-profiles">Cat Profiles</NavLink>
+        <NavLink to="/success-stories">Success Stories</NavLink>
       </NavLinks>
-
-      <button onClick={onLoginClick}> Login</button>
-      <img src={pawImage} alt="PAW Logo" style={{ width: "40px" }} />
     </NavbarContainer>
   );
 }
-export default Navbar;
+
+export default Cats;

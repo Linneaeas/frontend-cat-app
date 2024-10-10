@@ -38,7 +38,7 @@ export const globalStyles = css`
     list-style-type: none;
   }
 
-   h2 {
+   h1, h2, span {
     color: ${colors.orange};
   }
 `;
