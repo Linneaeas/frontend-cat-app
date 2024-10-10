@@ -6,6 +6,7 @@ import Step2 from "./step2";
 import Step3 from "./step3";
 import Step4 from "./step4";
 import Step5 from "./step5";
+import FormConfirmation from "./form-confirmation";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -51,8 +52,10 @@ const Headline2 = styled.h2`
   top: 10px;          
   left: 10px;
 `;
+
 const AddCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     date: "",
     pictures: "",
@@ -73,43 +76,55 @@ const AddCatModal = ({ onClose }) => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent default form behavior
     console.log("Final Form Data:", formData);
-    // Handle final form submission logic here
+    setIsSubmitted(true); // Set submitted state to true
   };
 
   return (
-    <ModalOverlay>
-      <ModalContainer>
-        <CloseButton onClick={onClose}>X</CloseButton>
-        <Headline2>Add a seen cat</Headline2>
-        <form>
-          {step === 0 && (
-            <Step1 formData={formData} setFormData={setFormData} />
-          )}
-          {step === 1 && (
-            <Step2 formData={formData} setFormData={setFormData} />
-          )}
-          {step === 2 && (
-            <Step3 formData={formData} setFormData={setFormData} />
-          )}
-          {step === 3 && (
-            <Step4 formData={formData} setFormData={setFormData} />
-          )}
-          {step === 4 && (
-            <Step5 formData={formData} setFormData={setFormData} />
-          )}
-        </form>
-        <div>
-          {step > 0 && <Button onClick={prevStep}>Previous</Button>}
-          {step < 4 ? (
-            <Button onClick={nextStep}>Next</Button>
-          ) : (
-            <Button>Submit</Button>
-          )}
-        </div>
-      </ModalContainer>
-    </ModalOverlay>
+    <>
+      {!isSubmitted ? (
+        <ModalOverlay>
+          <ModalContainer>
+            <CloseButton onClick={onClose}>X</CloseButton>
+            <Headline2>Add a seen cat</Headline2>
+            <form>
+              {step === 0 && (
+                <Step1 formData={formData} setFormData={setFormData} />
+              )}
+              {step === 1 && (
+                <Step2 formData={formData} setFormData={setFormData} />
+              )}
+              {step === 2 && (
+                <Step3 formData={formData} setFormData={setFormData} />
+              )}
+              {step === 3 && (
+                <Step4 formData={formData} setFormData={setFormData} />
+              )}
+              {step === 4 && (
+                <Step5 formData={formData} setFormData={setFormData} />
+              )}
+            </form>
+            <div>
+              {step > 0 && <Button onClick={prevStep}>Previous</Button>}
+              {step < 4 ? (
+                <Button onClick={nextStep}>Next</Button>
+              ) : (
+                <Button onClick={handleSubmit}>Submit</Button> // Trigger handleSubmit
+              )}
+            </div>
+          </ModalContainer>
+        </ModalOverlay>
+      ) : (
+        <ModalOverlay>
+          <ModalContainer>
+            <CloseButton onClick={onClose}>X</CloseButton>
+            <FormConfirmation formData={formData} />
+          </ModalContainer>
+        </ModalOverlay>
+      )}
+    </>
   );
 };
 
