@@ -1,5 +1,4 @@
 import {
-  Input,
   StepContainer,
   RadioGroup,
   RadioLabel,
@@ -13,11 +12,16 @@ import {
 
 const Step2 = ({ formData, setFormData }) => {
   const outsideOrInside = [
-    { label: "Inside", value: "inside" },
-    { label: "Outside", value: "outside" },
+    { label: "Inside", value: "Inside" },
+    { label: "Outside", value: "Outside" },
   ];
 
-  const overallStatuses = ["Healthy", "Not so healthy", "Need help asap"];
+  const overallStatuses = [
+    "Healthy",
+    "Not so healthy",
+    "Need help asap",
+    "Deceased",
+  ];
 
   const specificStatus = [
     { label: "Appears healthy and taken care of", value: "healthy" },

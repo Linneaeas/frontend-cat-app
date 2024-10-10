@@ -19,7 +19,7 @@ const NavLinks = styled.div`
   align-items: center;
   gap: 1.5rem;
 `;
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   color: white;
   text-decoration: none;
   font-size: 1rem;

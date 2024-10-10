@@ -1,9 +1,5 @@
 import {
-  Input,
   StepContainer,
-  RadioGroup,
-  RadioLabel,
-  Select,
   RadioColorLabel,
   RadioColorGroup,
   RadioInput,

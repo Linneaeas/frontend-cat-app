@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { colors } from "../../../styles";
 
 const Container = styled.div`
 background: lightgreen;

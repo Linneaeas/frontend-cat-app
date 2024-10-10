@@ -4,7 +4,6 @@ import { Global } from "@emotion/react";
 import Navbar from "./components/navbar.jsx";
 import { globalStyles } from "./styles.js";
 import Fab from "./components/fab.jsx";
-import Cats from "./pages/Cats/cats.jsx";
 import CatMap from "./pages/Cats/CatMap/cat-map.jsx";
 import CatProfiles from "./pages/Cats/cat-profiles.jsx";
 import SuccessStories from "./pages/Cats/success-stories.jsx";

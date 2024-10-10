@@ -1,10 +1,4 @@
-import {
-  Input,
-  StepContainer,
-  RadioGroup,
-  RadioLabel,
-  Select,
-} from "./step-styles";
+import { Input, StepContainer, Select } from "./step-styles";
 
 const reporteds = ["No", "Yes"];
 

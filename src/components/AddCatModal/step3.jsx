@@ -1,8 +1,5 @@
 import {
-  Input,
   StepContainer,
-  RadioGroup,
-  RadioLabel,
   Select,
   PicturesLabel,
   FormQuestions,

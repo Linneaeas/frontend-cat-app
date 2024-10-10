@@ -57,20 +57,26 @@ const AddCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
+    //Step1
     date: "",
-    pictures: "",
+    county: "",
     address: "",
-    age: "",
-    gender: "",
-    fur: "",
-    color: "",
-    policeReported: "",
-    additionalInformation: "",
-    reporterEmail: "",
-    publicReporterContacts: "",
-    outsideOrInside: "outside",
-    overallStatus: "",
+    //Step2
+    outsideOrInside: "Outside",
+    overallStatus: "Healthy",
     specificStatus: "",
+    //Step3
+    age: "Don't know",
+    gender: "Don't know",
+    fur: "Don't know",
+    pictures: "",
+    //Step4
+    color: "",
+    //Step5
+    reported: "No",
+    additionalInformation: "",
+    reporterPrivateInformation: "",
+    reporterPublicInformation: "",
   });
 
   const nextStep = () => setStep((prev) => prev + 1);
@@ -90,18 +96,23 @@ const AddCatModal = ({ onClose }) => {
             <CloseButton onClick={onClose}>X</CloseButton>
             <Headline2>Add a seen cat</Headline2>
             <form>
+              {/*date, county, address*/}
               {step === 0 && (
                 <Step1 formData={formData} setFormData={setFormData} />
               )}
+              {/*outsideOrInside, overallStatus, specificStatus*/}
               {step === 1 && (
                 <Step2 formData={formData} setFormData={setFormData} />
               )}
+              {/*age, gender, fur, pictures*/}
               {step === 2 && (
                 <Step3 formData={formData} setFormData={setFormData} />
               )}
+              {/*color*/}
               {step === 3 && (
                 <Step4 formData={formData} setFormData={setFormData} />
               )}
+              {/*reported, additionalInformation, reporterPrivateInformation, reporterPublicInformation*/}
               {step === 4 && (
                 <Step5 formData={formData} setFormData={setFormData} />
               )}
@@ -111,7 +122,7 @@ const AddCatModal = ({ onClose }) => {
               {step < 4 ? (
                 <Button onClick={nextStep}>Next</Button>
               ) : (
-                <Button onClick={handleSubmit}>Submit</Button> // Trigger handleSubmit
+                <Button onClick={handleSubmit}>Submit</Button>
               )}
             </div>
           </ModalContainer>
