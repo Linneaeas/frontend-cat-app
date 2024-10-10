@@ -5,7 +5,7 @@ import Navbar from "./components/navbar.jsx";
 import { globalStyles } from "./styles.js";
 import Fab from "./components/fab.jsx";
 import Cats from "./pages/Cats/cats.jsx";
-import CatMap from "./pages/Cats/cat-map.jsx";
+import CatMap from "./pages/Cats/CatMap/cat-map.jsx";
 import CatProfiles from "./pages/Cats/cat-profiles.jsx";
 import SuccessStories from "./pages/Cats/success-stories.jsx";
 import Missions from "./pages/Missions/missions.jsx";
@@ -42,7 +42,6 @@ function App() {
         <Routes>
           {/* MAIN ROUTES */}
           <Route path="/" element={<HomePage />} />
-          <Route path="/cats" element={<Cats />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/foster-home" element={<FosterHome />} />
           <Route path="/create-account" element={<CreateAccount />}></Route>

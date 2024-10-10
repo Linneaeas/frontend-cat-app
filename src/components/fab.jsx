@@ -14,14 +14,14 @@ const FabContainer = styled.button`
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
-  font-size: 24px; 
+  font-size: 40px; 
  
 `;
 
 function Fab({ onClick }) {
   return (
     <FabContainer onClick={onClick}>
-      <span>+</span>
+      <p>+</p>
     </FabContainer>
   );
 }
