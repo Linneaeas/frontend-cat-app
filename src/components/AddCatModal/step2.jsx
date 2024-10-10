@@ -4,84 +4,127 @@ import {
   RadioGroup,
   RadioLabel,
   Select,
+  CheckboxGroup,
+  CheckboxLabel,
+  CheckboxInput,
+  FormQuestions,
 } from "./step-styles";
 
-const counties = [
-  "Select a county",
-  "Blekinge län",
-  "Dalarnas län",
-  "Gotlands län",
-  "Gävleborgs län",
-  "Hallands län",
-  "Jämtlands län",
-  "Jönköpings län",
-  "Kalmar län",
-  "Kronobergs län",
-  "Norrbottens län",
-  "Skåne län",
-  "Stockholms län",
-  "Södermanlands län",
-  "Uppsala län",
-  "Värmlands län",
-  "Västerbottens län",
-  "Västernorrlands län",
-  "Västra götalands län",
-  "Örebro län",
-  "Östergötlands län",
-];
-
 const Step2 = ({ formData, setFormData }) => {
+  const outsideOptions = [
+    { label: "Appears healthy and taken care of", value: "healthy" },
+    { label: "Doesn't seem well taken care of", value: "notWellCared" },
+    { label: "In need of help asap", value: "needHelp" },
+    { label: "Contact seeking", value: "contactSeeking" },
+    { label: "Hungry", value: "hungry" },
+    { label: "Alot of knots in the fur", value: "knots" },
+    { label: "Limping", value: "limping" },
+    { label: "Skinny", value: "skinny" },
+    { label: "Healing wounds", value: "healingWounds" },
+    { label: "Open wounds", value: "openWounds" },
+    { label: "Seriously injured", value: "seriouslyInjured" },
+  ];
+
+  const insideOptions = [
+    { label: "Appears healthy and taken care of", value: "healthy" },
+    { label: "Doesn't seem well taken care of", value: "notWellCared" },
+    { label: "In need of help asap", value: "needHelp" },
+    { label: "Contact seeking", value: "contactSeeking" },
+    { label: "Hungry", value: "hungry" },
+    { label: "Alot of knots in the fur", value: "knots" },
+    { label: "Limping", value: "limping" },
+    { label: "Skinny", value: "skinny" },
+    { label: "Healing wounds", value: "healingWounds" },
+    { label: "Open wounds", value: "openWounds" },
+    { label: "Seriously injured", value: "seriouslyInjured" },
+  ];
+
+  const handleCheckboxChange = (e, groupName) => {
+    const { value, checked } = e.target;
+    const updatedStatus = checked
+      ? [...formData[groupName], value]
+      : formData[groupName].filter((v) => v !== value);
+
+    setFormData({ ...formData, [groupName]: updatedStatus });
+  };
+
   return (
     <StepContainer>
-      <h3>2</h3>
+      <h4>2. Status</h4>
+
       <label>
-        Where was the cat seen/found, Select county:
-        <Select
-          value={formData.county}
-          onChange={(e) => setFormData({ ...formData, county: e.target.value })}
-        >
-          {counties.map((county, index) => (
-            <option key={index} value={county}>
-              {county}
-            </option>
-          ))}
-        </Select>
+        <FormQuestions>Where is the cat now?</FormQuestions>
+        <RadioGroup>
+          <RadioLabel>
+            <input
+              type="radio"
+              name="outsideOrInside"
+              value="outside"
+              checked={formData.outsideOrInside === "outside"}
+              onChange={(e) =>
+                setFormData({ ...formData, outsideOrInside: e.target.value })
+              }
+            />
+            Outside
+          </RadioLabel>
+          <RadioLabel>
+            <input
+              type="radio"
+              name="outsideOrInside"
+              value="inside"
+              checked={formData.outsideOrInside === "inside"}
+              onChange={(e) =>
+                setFormData({ ...formData, outsideOrInside: e.target.value })
+              }
+            />
+            Inside
+          </RadioLabel>
+        </RadioGroup>
       </label>
-      <label>
-        Choose another county where the ad should be visable(not required):
-        <Select
-          value={formData.anotherCounty}
-          onChange={(e) =>
-            setFormData({ ...formData, anotherCounty: e.target.value })
-          }
-        >
-          {counties.map((county, index) => (
-            <option key={index} value={county}>
-              {county}
-            </option>
-          ))}
-        </Select>
-      </label>
-      <label>
-        Address:
-        <Input
-          type="address"
-          value={formData.textedAddress}
-          onChange={(e) =>
-            setFormData({ ...formData, textedAddress: e.target.value })
-          }
-        />
-      </label>
-      <label>
-        Choose location on map:
-        <Input
-          type="text"
-          value={formData.mapAddress}
-          onChange={(e) =>
-            setFormData({ ...formData, mapAddress: e.target.value })
-          }
-        />
-      </label>
+
+      {formData.outsideOrInside === "outside" && (
+        <label>
+          <FormQuestions>
+            Choose options that apply for a cat currently outside:
+          </FormQuestions>
+          <CheckboxGroup>
+            {outsideOptions.map((option) => (
+              <CheckboxLabel key={option.value}>
+                <CheckboxInput
+                  type="checkbox"
+                  name="statusOutside"
+                  value={option.value}
+                  checked={formData.statusOutside.includes(option.value)}
+                  onChange={(e) => handleCheckboxChange(e, "statusOutside")}
+                />
+                {option.label}
+              </CheckboxLabel>
+            ))}
+          </CheckboxGroup>
+        </label>
+      )}
+
+      {formData.outsideOrInside === "inside" && (
+        <label>
+          <FormQuestions>
+            Choose options that apply for a cat currently inside:
+          </FormQuestions>
+          <CheckboxGroup>
+            {insideOptions.map((option) => (
+              <CheckboxLabel key={option.value}>
+                <CheckboxInput
+                  type="checkbox"
+                  name="statusInside"
+                  value={option.value}
+                  checked={formData.statusInside.includes(option.value)}
+                  onChange={(e) => handleCheckboxChange(e, "statusInside")}
+                />
+                {option.label}
+              </CheckboxLabel>
+            ))}
+          </CheckboxGroup>
+        </label>
+      )}
     </StepContainer>
   );
 };

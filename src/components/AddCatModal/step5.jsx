@@ -11,7 +11,7 @@ const reporteds = ["No", "Yes"];
 const Step5 = ({ formData, setFormData }) => {
   return (
     <StepContainer>
-      <h3>5</h3>
+      <h4>5. Information</h4>
       <label>
         Police reported:
         <Select
@@ -38,22 +38,29 @@ const Step5 = ({ formData, setFormData }) => {
         />
       </label>
       <label>
-        Your email:
+        Your contacts for shelters, organizations and Sverak, phone and/or
+        email:
         <Input
-          type="email"
-          value={formData.reporterEmail}
+          type="text"
+          value={formData.reporterPrivateInformation}
           onChange={(e) =>
-            setFormData({ ...formData, reporterEmail: e.target.value })
+            setFormData({
+              ...formData,
+              reporterPrivateInformation: e.target.value,
+            })
           }
         />
       </label>
       <label>
-        Public contact information:
+        Public contact information, phone and/or email:
         <Input
           type="text"
-          value={formData.publicReporterContacts}
+          value={formData.reporterPublicInformation}
           onChange={(e) =>
-            setFormData({ ...formData, publicReporterContacts: e.target.value })
+            setFormData({
+              ...formData,
+              reporterPublicInformation: e.target.value,
+            })
           }
         />
       </label>

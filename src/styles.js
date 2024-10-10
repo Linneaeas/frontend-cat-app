@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 
 export const colors = {
   orange: "#d86d6e",
+  orangeLight: "#f3bdbe",
 };
 
 export const globalStyles = css`
@@ -38,7 +39,7 @@ export const globalStyles = css`
     list-style-type: none;
   }
 
-   h1, h2, span {
+   h1, h2, h4, span {
     color: ${colors.orange};
   }
 `;

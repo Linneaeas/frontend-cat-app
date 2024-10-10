@@ -54,11 +54,8 @@ const Headline2 = styled.h2`
 const AddCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
-    headline: "",
     date: "",
     pictures: "",
-    county: "",
-    anotherCounty: "",
     textedAddress: "",
     mapAddress: "",
     age: "",
@@ -70,8 +67,8 @@ const AddCatModal = ({ onClose }) => {
     reporterEmail: "",
     publicReporterContacts: "",
     outsideOrInside: "outside",
-    outsideStatus: "",
-    insideStatus: "",
+    statusOutside: "",
+    statusInside: "",
   });
 
   const nextStep = () => setStep((prev) => prev + 1);

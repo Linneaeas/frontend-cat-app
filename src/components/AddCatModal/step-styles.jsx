@@ -52,3 +52,23 @@ export const RadioColorLabel = styled.label`
 export const RadioInput = styled.input`
   margin-top:0.2rem;
 `;
+
+export const CheckboxGroup = styled.div`
+display: flex; 
+flex-direction: column;
+gap: 0.5rem;
+`;
+
+export const CheckboxLabel = styled.label`
+
+`;
+
+export const CheckboxInput = styled.input`
+ 
+`;
+
+export const FormQuestions = styled.p`
+font-weight: bold;
+padding: 0.2rem;
+ 
+`;

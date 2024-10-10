@@ -5,6 +5,7 @@ import {
   RadioLabel,
   Select,
   PicturesLabel,
+  FormQuestions,
 } from "./step-styles";
 
 const ages = ["Don't know", "Kitten", "Adult"];
@@ -19,9 +20,9 @@ const furs = [
 const Step3 = ({ formData, setFormData }) => {
   return (
     <StepContainer>
-      <h3>3</h3>
+      <h4>3. Description & Appearance</h4>
       <label>
-        Age:
+        <FormQuestions>Age:</FormQuestions>
         <Select
           value={formData.age}
           onChange={(e) => setFormData({ ...formData, age: e.target.value })}
@@ -34,7 +35,7 @@ const Step3 = ({ formData, setFormData }) => {
         </Select>
       </label>
       <label>
-        Gender:
+        <FormQuestions>Gender:</FormQuestions>
         <Select
           value={formData.gender}
           onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
@@ -47,7 +48,7 @@ const Step3 = ({ formData, setFormData }) => {
         </Select>
       </label>
       <label>
-        Fur:
+        <FormQuestions>Fur:</FormQuestions>
         <Select
           value={formData.fur}
           onChange={(e) => setFormData({ ...formData, fur: e.target.value })}
@@ -60,7 +61,7 @@ const Step3 = ({ formData, setFormData }) => {
         </Select>
       </label>
       <PicturesLabel>
-        Pictures:
+        <FormQuestions>Pictures:</FormQuestions>
         <input
           type="file"
           accept="image/*"
