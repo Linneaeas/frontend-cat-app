@@ -25,9 +25,9 @@ const Step1 = ({ formData, setFormData }) => {
         <FormQuestions>Choose location on map:</FormQuestions>
         <Input
           type="text"
-          value={formData.mapAddress}
+          value={formData.address}
           onChange={(e) =>
-            setFormData({ ...formData, mapAddress: e.target.value })
+            setFormData({ ...formData, address: e.target.value })
           }
         />
       </label>

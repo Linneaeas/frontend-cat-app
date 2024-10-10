@@ -56,8 +56,7 @@ const AddCatModal = ({ onClose }) => {
   const [formData, setFormData] = useState({
     date: "",
     pictures: "",
-    textedAddress: "",
-    mapAddress: "",
+    address: "",
     age: "",
     gender: "",
     fur: "",
@@ -67,8 +66,8 @@ const AddCatModal = ({ onClose }) => {
     reporterEmail: "",
     publicReporterContacts: "",
     outsideOrInside: "outside",
-    statusOutside: "",
-    statusInside: "",
+    overallStatus: "",
+    specificStatus: "",
   });
 
   const nextStep = () => setStep((prev) => prev + 1);

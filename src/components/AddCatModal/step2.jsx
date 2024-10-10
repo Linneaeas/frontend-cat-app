@@ -4,6 +4,7 @@ import {
   RadioGroup,
   RadioLabel,
   Select,
+  RadioInput,
   CheckboxGroup,
   CheckboxLabel,
   CheckboxInput,
@@ -11,21 +12,14 @@ import {
 } from "./step-styles";
 
 const Step2 = ({ formData, setFormData }) => {
-  const outsideOptions = [
-    { label: "Appears healthy and taken care of", value: "healthy" },
-    { label: "Doesn't seem well taken care of", value: "notWellCared" },
-    { label: "In need of help asap", value: "needHelp" },
-    { label: "Contact seeking", value: "contactSeeking" },
-    { label: "Hungry", value: "hungry" },
-    { label: "Alot of knots in the fur", value: "knots" },
-    { label: "Limping", value: "limping" },
-    { label: "Skinny", value: "skinny" },
-    { label: "Healing wounds", value: "healingWounds" },
-    { label: "Open wounds", value: "openWounds" },
-    { label: "Seriously injured", value: "seriouslyInjured" },
+  const outsideOrInside = [
+    { label: "Inside", value: "inside" },
+    { label: "Outside", value: "outside" },
   ];
 
-  const insideOptions = [
+  const overallStatuses = ["Healthy", "Not so healthy", "Need help asap"];
+
+  const specificStatus = [
     { label: "Appears healthy and taken care of", value: "healthy" },
     { label: "Doesn't seem well taken care of", value: "notWellCared" },
     { label: "In need of help asap", value: "needHelp" },
@@ -55,76 +49,58 @@ const Step2 = ({ formData, setFormData }) => {
       <label>
         <FormQuestions>Where is the cat now?</FormQuestions>
         <RadioGroup>
-          <RadioLabel>
-            <input
-              type="radio"
-              name="outsideOrInside"
-              value="outside"
-              checked={formData.outsideOrInside === "outside"}
-              onChange={(e) =>
-                setFormData({ ...formData, outsideOrInside: e.target.value })
-              }
-            />
-            Outside
-          </RadioLabel>
-          <RadioLabel>
-            <input
-              type="radio"
-              name="outsideOrInside"
-              value="inside"
-              checked={formData.outsideOrInside === "inside"}
-              onChange={(e) =>
-                setFormData({ ...formData, outsideOrInside: e.target.value })
-              }
-            />
-            Inside
-          </RadioLabel>
+          {outsideOrInside.map((option) => (
+            <RadioLabel key={option.value}>
+              <RadioInput
+                type="radio"
+                name="outsideOrInside"
+                value={option.value}
+                checked={formData.outsideOrInside.includes(option.value)}
+                onChange={(e) => handleCheckboxChange(e, "outsideOrInside")}
+              />
+              {option.label}
+            </RadioLabel>
+          ))}
         </RadioGroup>
       </label>
 
-      {formData.outsideOrInside === "outside" && (
-        <label>
-          <FormQuestions>
-            Choose options that apply for a cat currently outside:
-          </FormQuestions>
-          <CheckboxGroup>
-            {outsideOptions.map((option) => (
-              <CheckboxLabel key={option.value}>
-                <CheckboxInput
-                  type="checkbox"
-                  name="statusOutside"
-                  value={option.value}
-                  checked={formData.statusOutside.includes(option.value)}
-                  onChange={(e) => handleCheckboxChange(e, "statusOutside")}
-                />
-                {option.label}
-              </CheckboxLabel>
-            ))}
-          </CheckboxGroup>
-        </label>
-      )}
+      <label>
+        <FormQuestions>
+          Choose the option that best describes the cats overall state:
+        </FormQuestions>
+        <Select
+          value={formData.overallStatus}
+          onChange={(e) =>
+            setFormData({ ...formData, overallStatus: e.target.value })
+          }
+        >
+          {overallStatuses.map((overallStatus, index) => (
+            <option key={index} value={overallStatus}>
+              {overallStatus}
+            </option>
+          ))}
+        </Select>
+      </label>
 
-      {formData.outsideOrInside === "inside" && (
-        <label>
-          <FormQuestions>
-            Choose options that apply for a cat currently inside:
-          </FormQuestions>
-          <CheckboxGroup>
-            {insideOptions.map((option) => (
-              <CheckboxLabel key={option.value}>
-                <CheckboxInput
-                  type="checkbox"
-                  name="statusInside"
-                  value={option.value}
-                  checked={formData.statusInside.includes(option.value)}
-                  onChange={(e) => handleCheckboxChange(e, "statusInside")}
-                />
-                {option.label}
-              </CheckboxLabel>
-            ))}
-          </CheckboxGroup>
-        </label>
-      )}
+      <label>
+        <FormQuestions>
+          Choose the options that applies for the cat:
+        </FormQuestions>
+        <CheckboxGroup>
+          {specificStatus.map((option) => (
+            <CheckboxLabel key={option.value}>
+              <CheckboxInput
+                type="checkbox"
+                name="specificStatus"
+                value={option.value}
+                checked={formData.specificStatus.includes(option.value)}
+                onChange={(e) => handleCheckboxChange(e, "specificStatus")}
+              />
+              {option.label}
+            </CheckboxLabel>
+          ))}
+        </CheckboxGroup>
+      </label>
     </StepContainer>
   );
 };
