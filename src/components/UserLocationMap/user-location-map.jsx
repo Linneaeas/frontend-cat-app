@@ -11,10 +11,11 @@ import {
   SearchButton,
   SuggestionsUl,
   SuggestionsLi,
-  SideDiv,
+  FirstRowDiv,
   CurrentAddressDiv,
   HeaderDiv,
   AddressDiv,
+  SecondRowDiv,
 } from "./map-styles";
 
 const UserLocationMap = ({
@@ -167,7 +168,7 @@ const UserLocationMap = ({
   return (
     <ContainerDiv>
       <HeaderDiv>
-        <SideDiv>
+        <FirstRowDiv>
           <RadioLabel>
             <RadioInput
               type="radio"
@@ -176,11 +177,7 @@ const UserLocationMap = ({
               onChange={handleRadioChange}
             />
             Use Current Location{" "}
-            <CurrentAddressDiv>{currentAddress}</CurrentAddressDiv>
           </RadioLabel>
-        </SideDiv>
-
-        <SideDiv>
           <RadioLabel>
             <RadioInput
               type="radio"
@@ -190,14 +187,18 @@ const UserLocationMap = ({
             />
             Choose address
           </RadioLabel>
+        </FirstRowDiv>
 
-          {!useCurrentLocation && (
+        <SecondRowDiv>
+          {useCurrentLocation ? (
+            <CurrentAddressDiv>{currentAddress}</CurrentAddressDiv>
+          ) : (
             <AddressForm onSubmit={(e) => e.preventDefault()}>
               <AddressInput
                 type="text"
                 value={address}
                 onChange={handleAddressChange}
-                onFocus={handleInputFocus} // Clear input when focused
+                onFocus={handleInputFocus}
                 placeholder="Type an address"
               />
               <SearchButton type="submit">S</SearchButton>
@@ -216,7 +217,7 @@ const UserLocationMap = ({
               ))}
             </SuggestionsUl>
           )}
-        </SideDiv>
+        </SecondRowDiv>
       </HeaderDiv>
 
       <Map

@@ -6,12 +6,21 @@ export const ContainerDiv = styled.div`
   flex-direction: column;
 `;
 export const HeaderDiv = styled.div`
-   display: grid;
-  grid-template-columns: 1fr 1fr;
+   display: flex;
+   flex-direction:column;
+   gap: 10px;
+   background-color: ${colors.orange};
+   padding:10px;
+   color: white;
 `;
-export const SideDiv = styled.div`
- background-color: ${colors.orange};
- color: white;
+export const FirstRowDiv = styled.div`
+display: flex;
+justify-content:center;
+gap:2rem;
+`;
+export const SecondRowDiv = styled.div`
+display: flex;
+justify-content:center;
 `;
 
 export const RadioLabel = styled.label`
@@ -21,18 +30,22 @@ export const RadioInput = styled.input`
 export const CurrentAddressDiv = styled.div`
 `;
 export const AddressForm = styled.form`
-width:100%;
 `;
 export const AddressInput = styled.input`
 height: 1.7rem;
-width: 95%;
+width: 20rem;
 border:none;
+background-color: ${colors.orangeLight};
+border-radius: 50px;
 position:relative;
 `;
 export const SearchButton = styled.button`
-background:white;
 height:1.7rem;
+aspect-ratio:1;
+border-radius: 100px;
+background-color: ${colors.orangeLight};
 color: ${colors.orange};
+margin-left: 1px;
 `;
 export const SuggestionsUl = styled.ul`
 position:absolute;
