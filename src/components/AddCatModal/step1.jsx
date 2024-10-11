@@ -1,4 +1,6 @@
 import { Input, StepContainer, FormQuestions, Select } from "./step-styles";
+import UserLocationMap from "../user-location-map";
+
 const counties = [
   "Select a county",
   "Blekinge län",
@@ -60,6 +62,11 @@ const Step1 = ({ formData, setFormData }) => {
           }
         />
       </label>
+      <UserLocationMap
+        formData={formData}
+        setFormData={setFormData}
+        isModal={true}
+      />
     </StepContainer>
   );
 };
