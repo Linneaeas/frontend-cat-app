@@ -13,6 +13,8 @@ import AddCatModal from "./components/AddCatModal/add-cat-modal.jsx";
 import HomePage from "./pages/home.jsx";
 import LoginModal from "./components/login-modal.jsx";
 import CreateAccount from "./pages/Account/create-account.jsx";
+import "mapbox-gl/dist/mapbox-gl.css";
+import Map, { Marker } from "react-map-gl";
 
 function App() {
   const [isAddCatModalOpen, setAddCatModalOpen] = useState(false);
