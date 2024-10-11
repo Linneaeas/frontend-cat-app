@@ -2,6 +2,20 @@ import React, { useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker } from "react-map-gl";
 import axios from "axios";
+import {
+  ContainerDiv,
+  RadioLabel,
+  RadioInput,
+  AddressForm,
+  AddressInput,
+  SearchButton,
+  SuggestionsUl,
+  SuggestionsLi,
+  SideDiv,
+  CurrentAddressDiv,
+  HeaderDiv,
+  AddressDiv,
+} from "./map-styles";
 
 const UserLocationMap = ({
   onLocationSelect,
@@ -151,88 +165,68 @@ const UserLocationMap = ({
   };
 
   return (
-    <>
-      <div style={{ marginBottom: "10px" }}>
-        <label>
-          <input
-            type="radio"
-            value="current"
-            checked={useCurrentLocation}
-            onChange={handleRadioChange}
-          />
-          Use Current Location{" "}
-          {useCurrentLocation && currentAddress && `(${currentAddress})`}
-        </label>
-        <label style={{ marginLeft: "10px" }}>
-          <input
-            type="radio"
-            value="typed"
-            checked={!useCurrentLocation}
-            onChange={handleRadioChange}
-          />
-          Type Address or Click on the Map
-        </label>
-      </div>
+    <ContainerDiv>
+      <HeaderDiv>
+        <SideDiv>
+          <RadioLabel>
+            <RadioInput
+              type="radio"
+              value="current"
+              checked={useCurrentLocation}
+              onChange={handleRadioChange}
+            />
+            Use Current Location{" "}
+            <CurrentAddressDiv>{currentAddress}</CurrentAddressDiv>
+          </RadioLabel>
+        </SideDiv>
 
-      {/* Conditionally render input based on the radio selection */}
-      {!useCurrentLocation && (
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          style={{ marginBottom: "10px" }}
-        >
-          <input
-            type="text"
-            value={address}
-            onChange={handleAddressChange}
-            onFocus={handleInputFocus} // Clear input when focused
-            placeholder="Type an address"
-            style={{ width: "80%", padding: "8px" }}
-          />
-          <button type="submit" style={{ padding: "8px" }}>
-            Search
-          </button>
-        </form>
-      )}
+        <SideDiv>
+          <RadioLabel>
+            <RadioInput
+              type="radio"
+              value="typed"
+              checked={!useCurrentLocation}
+              onChange={handleRadioChange}
+            />
+            Choose address
+          </RadioLabel>
 
-      {suggestions.length > 0 && (
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
-            border: "1px solid #ccc",
-            maxHeight: "150px",
-            overflowY: "auto",
-          }}
-        >
-          {suggestions.map((suggestion, index) => (
-            <li
-              key={index}
-              onClick={() => handleSuggestionClick(suggestion)}
-              style={{
-                padding: "8px",
-                cursor: "pointer",
-                backgroundColor: "#fff",
-                borderBottom: "1px solid #eee",
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#f0f0f0")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#fff")}
-            >
-              {suggestion}
-            </li>
-          ))}
-        </ul>
-      )}
+          {!useCurrentLocation && (
+            <AddressForm onSubmit={(e) => e.preventDefault()}>
+              <AddressInput
+                type="text"
+                value={address}
+                onChange={handleAddressChange}
+                onFocus={handleInputFocus} // Clear input when focused
+                placeholder="Type an address"
+              />
+              <SearchButton type="submit">S</SearchButton>
+            </AddressForm>
+          )}
+
+          {suggestions.length > 0 && (
+            <SuggestionsUl>
+              {suggestions.map((suggestion, index) => (
+                <SuggestionsLi
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </SuggestionsLi>
+              ))}
+            </SuggestionsUl>
+          )}
+        </SideDiv>
+      </HeaderDiv>
 
       <Map
         {...viewState}
         style={{ width, height }}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        onMove={handleMapMove} // Use the new function to handle movement
+        onMove={handleMapMove}
         onClick={handleMapClick}
       >
-        {/* Only one marker displayed based on the selection */}
         {useCurrentLocation && userLocation ? (
           <Marker
             longitude={userLocation.longitude}
@@ -240,16 +234,16 @@ const UserLocationMap = ({
             color="blue"
           />
         ) : (
-          markerPosition && ( // Show marker if markerPosition is available
+          markerPosition && (
             <Marker
               longitude={markerPosition.longitude}
               latitude={markerPosition.latitude}
-              color="red"
+              color="blue"
             />
           )
         )}
       </Map>
-    </>
+    </ContainerDiv>
   );
 };
 

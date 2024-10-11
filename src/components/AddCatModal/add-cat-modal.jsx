@@ -18,14 +18,15 @@ const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 10; 
 `;
 
 const ModalContainer = styled.div`
   position: relative; 
   background: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 1rem;
+  border: 0.5rem solid ${colors.orange};
   width: fit-content;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 `;
@@ -57,23 +58,31 @@ const AddCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    location: {
+    eventInfo: {
+      date: "",
       address: "",
       longitude: "",
       latitude: "",
     },
-    catDetails: {
+    catStatus: {
+      missingOrSeen: "Seen",
+      name: "Mjau doe",
       outsideOrInside: "Outside",
       overallStatus: "Healthy",
       specificStatus: "",
+    },
+    catAppearance: {
       age: "Don't know",
       gender: "Don't know",
       fur: "Don't know",
       pictures: "",
-      color: "",
+      primaryColor: "",
+      secondaryColor: "",
+      secondaryColor: "",
+      tertiaryColor: "",
+      pattern: "",
     },
     reporterInfo: {
-      date: "",
       policeReported: "No",
       additionalInformation: "",
       privateInformation: "",
@@ -96,7 +105,7 @@ const AddCatModal = ({ onClose }) => {
         <ModalOverlay>
           <ModalContainer>
             <CloseButton onClick={onClose}>X</CloseButton>
-            <Headline2>Add a seen cat</Headline2>
+            <Headline2>Add a cat</Headline2>
             <form>
               {/*date, county, address*/}
               {step === 0 && (

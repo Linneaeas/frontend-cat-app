@@ -1,7 +1,7 @@
 import DisplayFilters from "./display-filters";
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import UserLocationMap from "../../../components/user-location-map";
+import UserLocationMap from "../../../components/UserLocationMap/user-location-map";
 
 const CatMapContainer = styled.div`
   height: 100vh; /* Fullscreen height */
