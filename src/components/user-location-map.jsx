@@ -16,11 +16,9 @@ const UserLocationMap = ({
 
   const [userLocation, setUserLocation] = useState(null);
   const [address, setAddress] = useState("");
-  const [currentAddress, setCurrentAddress] = useState(""); // New state to store the current address
+  const [currentAddress, setCurrentAddress] = useState(""); // Store the current address
   const [suggestions, setSuggestions] = useState([]);
   const [useCurrentLocation, setUseCurrentLocation] = useState(true);
-
-  // New state variables for marker position
   const [markerPosition, setMarkerPosition] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(12); // Initialize zoom level
 
@@ -31,13 +29,7 @@ const UserLocationMap = ({
         (position) => {
           const { longitude, latitude } = position.coords;
           setUserLocation({ longitude, latitude });
-          setViewState((prevState) => ({
-            ...prevState,
-            longitude,
-            latitude,
-            zoom: 12,
-          }));
-          // Fetch the address based on the user's location
+          setViewState({ longitude, latitude, zoom: 12 });
           reverseGeocode(longitude, latitude);
         },
         (error) => {
@@ -65,10 +57,10 @@ const UserLocationMap = ({
   };
 
   const handleMapClick = (event) => {
-    const longitude = event.lngLat.lng; // Access longitude
-    const latitude = event.lngLat.lat; // Access latitude
+    const { lngLat } = event;
+    const longitude = lngLat.lng; // Access longitude
+    const latitude = lngLat.lat; // Access latitude
 
-    // Update only the longitude and latitude without changing the zoom
     setViewState((prevState) => ({
       ...prevState,
       longitude,
@@ -142,7 +134,6 @@ const UserLocationMap = ({
         latitude: userLocation.latitude,
         zoom: zoomLevel, // Maintain current zoom level
       });
-
       setSuggestions([]); // Clear any suggestions
       setAddress(currentAddress); // Reset address to the current address
       setMarkerPosition({
@@ -249,8 +240,7 @@ const UserLocationMap = ({
             color="blue"
           />
         ) : (
-          address &&
-          markerPosition && ( // Only show marker if address and markerPosition are available
+          markerPosition && ( // Show marker if markerPosition is available
             <Marker
               longitude={markerPosition.longitude}
               latitude={markerPosition.latitude}

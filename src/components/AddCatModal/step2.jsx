@@ -10,7 +10,7 @@ import {
   FormQuestions,
 } from "./step-styles";
 
-const Step2 = ({ formData, setFormData }) => {
+export const Step2 = ({ formData, setFormData }) => {
   const outsideOrInside = [
     { label: "Inside", value: "Inside" },
     { label: "Outside", value: "Outside" },
@@ -40,10 +40,16 @@ const Step2 = ({ formData, setFormData }) => {
   const handleCheckboxChange = (e, groupName) => {
     const { value, checked } = e.target;
     const updatedStatus = checked
-      ? [...formData[groupName], value]
-      : formData[groupName].filter((v) => v !== value);
+      ? [...formData.catDetails[groupName], value]
+      : formData.catDetails[groupName].filter((v) => v !== value);
 
-    setFormData({ ...formData, [groupName]: updatedStatus });
+    setFormData((prevData) => ({
+      ...prevData,
+      catDetails: {
+        ...prevData.catDetails,
+        [groupName]: updatedStatus,
+      },
+    }));
   };
 
   return (
@@ -59,8 +65,16 @@ const Step2 = ({ formData, setFormData }) => {
                 type="radio"
                 name="outsideOrInside"
                 value={option.value}
-                checked={formData.outsideOrInside.includes(option.value)}
-                onChange={(e) => handleCheckboxChange(e, "outsideOrInside")}
+                checked={formData.catDetails.outsideOrInside === option.value}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    catDetails: {
+                      ...prevData.catDetails,
+                      outsideOrInside: e.target.value, // Update the outsideOrInside property
+                    },
+                  }))
+                }
               />
               {option.label}
             </RadioLabel>
@@ -70,12 +84,18 @@ const Step2 = ({ formData, setFormData }) => {
 
       <label>
         <FormQuestions>
-          Choose the option that best describes the cats overall state:
+          Choose the option that best describes the cat's overall state:
         </FormQuestions>
         <Select
-          value={formData.overallStatus}
+          value={formData.catDetails.overallStatus}
           onChange={(e) =>
-            setFormData({ ...formData, overallStatus: e.target.value })
+            setFormData((prevData) => ({
+              ...prevData,
+              catDetails: {
+                ...prevData.catDetails,
+                overallStatus: e.target.value, // Update overallStatus within catDetails
+              },
+            }))
           }
         >
           {overallStatuses.map((overallStatus, index) => (
@@ -88,7 +108,7 @@ const Step2 = ({ formData, setFormData }) => {
 
       <label>
         <FormQuestions>
-          Choose the options that applies for the cat:
+          Choose the options that apply for the cat:
         </FormQuestions>
         <CheckboxGroup>
           {specificStatus.map((option) => (
@@ -97,7 +117,9 @@ const Step2 = ({ formData, setFormData }) => {
                 type="checkbox"
                 name="specificStatus"
                 value={option.value}
-                checked={formData.specificStatus.includes(option.value)}
+                checked={formData.catDetails.specificStatus.includes(
+                  option.value
+                )}
                 onChange={(e) => handleCheckboxChange(e, "specificStatus")}
               />
               {option.label}

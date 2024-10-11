@@ -6,7 +6,7 @@ import {
   FormQuestions,
 } from "./step-styles";
 
-const Step4 = ({ formData, setFormData }) => {
+export const Step4 = ({ formData, setFormData }) => {
   // Array of color options
   const colorOptions = [
     "Sköldpaddsfärgad katt (med eller utan vitt)",
@@ -34,9 +34,15 @@ const Step4 = ({ formData, setFormData }) => {
                 type="radio"
                 name="color"
                 value={color}
-                checked={formData.color === color}
+                checked={formData.catDetails.color === color}
                 onChange={(e) =>
-                  setFormData({ ...formData, color: e.target.value })
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    catDetails: {
+                      ...prevData.catDetails,
+                      color: e.target.value, // Update the color within catDetails
+                    },
+                  }))
                 }
               />
               {index + 1}. {color}

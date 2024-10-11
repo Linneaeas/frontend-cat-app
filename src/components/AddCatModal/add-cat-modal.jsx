@@ -57,26 +57,28 @@ const AddCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    //Step1
-    date: "",
-    county: "",
-    address: "",
-    //Step2
-    outsideOrInside: "Outside",
-    overallStatus: "Healthy",
-    specificStatus: "",
-    //Step3
-    age: "Don't know",
-    gender: "Don't know",
-    fur: "Don't know",
-    pictures: "",
-    //Step4
-    color: "",
-    //Step5
-    reported: "No",
-    additionalInformation: "",
-    reporterPrivateInformation: "",
-    reporterPublicInformation: "",
+    location: {
+      address: "",
+      longitude: "",
+      latitude: "",
+    },
+    catDetails: {
+      outsideOrInside: "Outside",
+      overallStatus: "Healthy",
+      specificStatus: "",
+      age: "Don't know",
+      gender: "Don't know",
+      fur: "Don't know",
+      pictures: "",
+      color: "",
+    },
+    reporterInfo: {
+      date: "",
+      policeReported: "No",
+      additionalInformation: "",
+      privateInformation: "",
+      publicInformation: "",
+    },
   });
 
   const nextStep = () => setStep((prev) => prev + 1);
