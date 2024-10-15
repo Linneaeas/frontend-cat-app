@@ -7,6 +7,7 @@ import CatAppearance from "./cat-appearance";
 import ReporterInfo from "./reporter-info";
 import FormConfirmation from "./form-confirmation";
 import { defaultCatData } from "../cat-data";
+import axios from "axios";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -62,12 +63,25 @@ const AddSeenCatModal = ({ onClose }) => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form behavior
-    console.log("Final Form Data:", formData);
-    setIsSubmitted(true); // Set submitted state to true
-  };
 
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/submit-cat",
+        formData
+      );
+      console.log("Submission Response:", response.data);
+      setIsSubmitted(true); // Set submitted state to true
+    } catch (error) {
+      console.error("Submission Error:", error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error("Response data:", error.response.data);
+      }
+      // Show an alert or message to the user about the error
+    }
+  };
   return (
     <>
       {!isSubmitted ? (
