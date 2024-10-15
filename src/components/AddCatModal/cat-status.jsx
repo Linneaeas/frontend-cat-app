@@ -9,7 +9,11 @@ import {
   CheckboxInput,
   FormQuestions,
 } from "./step-styles";
-import { outsideOrInside, overallStatuses, specificStatus } from "../cat-data";
+import {
+  outsideOrInside,
+  overallStatuses,
+  specificStatuses,
+} from "../cat-data";
 
 export const CatStatus = ({ formData, setFormData }) => {
   const handleCheckboxChange = (e, groupName) => {
@@ -44,7 +48,7 @@ export const CatStatus = ({ formData, setFormData }) => {
                 onChange={(e) =>
                   setFormData((prevData) => ({
                     ...prevData,
-                    catDetails: {
+                    catStatus: {
                       ...prevData.catStatus,
                       outsideOrInside: e.target.value, // Update the outsideOrInside property
                     },
@@ -86,16 +90,16 @@ export const CatStatus = ({ formData, setFormData }) => {
           Choose the options that apply for the cat:
         </FormQuestions>
         <CheckboxGroup>
-          {specificStatus.map((option) => (
+          {specificStatuses.map((option) => (
             <CheckboxLabel key={option.value}>
               <CheckboxInput
                 type="checkbox"
-                name="specificStatus"
+                name="specificStatuses"
                 value={option.value}
-                checked={formData.catStatus.specificStatus.includes(
+                checked={formData.catStatus.specificStatuses.includes(
                   option.value
                 )}
-                onChange={(e) => handleCheckboxChange(e, "specificStatus")}
+                onChange={(e) => handleCheckboxChange(e, "specificStatuses")}
               />
               {option.label}
             </CheckboxLabel>

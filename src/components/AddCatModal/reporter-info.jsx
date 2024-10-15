@@ -1,6 +1,6 @@
 import { Input, StepContainer, Select } from "./step-styles";
 import React, { useState } from "react";
-import { policeReportedOptions } from "../cat-data";
+import { policeReported } from "../cat-data";
 
 export const ReporterInfo = ({ formData, setFormData }) => {
   return (
@@ -10,18 +10,18 @@ export const ReporterInfo = ({ formData, setFormData }) => {
       <label>
         Police reported:
         <Select
-          value={formData.reporterInfo.policeReported}
+          value={formData.eventInfo.policeReported}
           onChange={(e) =>
             setFormData((prevData) => ({
               ...prevData,
-              reporterInfo: {
-                ...prevData.reporterInfo,
-                policeReported: e.target.value, // Update reported within reporter
+              eventInfo: {
+                ...prevData.eventInfo,
+                policeReported: e.target.value,
               },
             }))
           }
         >
-          {policeReportedOptions.map((policeReported, index) => (
+          {policeReported.map((policeReported, index) => (
             <option key={index} value={policeReported}>
               {policeReported}
             </option>
@@ -33,13 +33,13 @@ export const ReporterInfo = ({ formData, setFormData }) => {
         Additional information:
         <Input
           type="text"
-          value={formData.reporterInfo.additionalInformation}
+          value={formData.eventInfo.additionalInformation}
           onChange={(e) =>
             setFormData((prevData) => ({
               ...prevData,
-              reporterInfo: {
-                ...prevData.reporterInfo,
-                additionalInformation: e.target.value, // Update additionalInformation within reporter
+              eventInfo: {
+                ...prevData.eventInfo,
+                additionalInformation: e.target.value,
               },
             }))
           }
@@ -47,17 +47,19 @@ export const ReporterInfo = ({ formData, setFormData }) => {
       </label>
 
       <label>
-        Your contacts for shelters, organizations and Sverak, phone and/or
-        email:
+        Your contacts: phone number:
         <Input
           type="text"
-          value={formData.reporterInfo.privateInformation}
+          value={formData.eventInfo.reporterInfo.phoneNr}
           onChange={(e) =>
             setFormData((prevData) => ({
               ...prevData,
-              reporterInfo: {
-                ...prevData.reporterInfo,
-                privateInformation: e.target.value, // Update reporterPrivateInformation within reporter
+              eventInfo: {
+                ...prevData.eventInfo,
+                reporterInfo: {
+                  ...prevData.eventInfo.reporterInfo,
+                  phoneNr: e.target.value, // Correctly updating phoneNr as a string
+                },
               },
             }))
           }
@@ -65,16 +67,19 @@ export const ReporterInfo = ({ formData, setFormData }) => {
       </label>
 
       <label>
-        Public contact information, phone and/or email:
+        Your contacts: email:
         <Input
           type="text"
-          value={formData.reporterInfo.publicInformation}
+          value={formData.eventInfo.reporterInfo.email}
           onChange={(e) =>
             setFormData((prevData) => ({
               ...prevData,
-              reporterInfo: {
-                ...prevData.reporterInfo,
-                publicInformation: e.target.value, // Update reporterPublicInformation within reporter
+              eventInfo: {
+                ...prevData.eventInfo,
+                reporterInfo: {
+                  ...prevData.eventInfo.reporterInfo,
+                  email: e.target.value,
+                },
               },
             }))
           }

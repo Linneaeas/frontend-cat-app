@@ -61,37 +61,38 @@ const FormConfirmation = ({ formData }) => {
         </li>
         <li>
           <span>Color: </span>
-          {formData.catAppearance.primaryColor}
-          {formData.catAppearance.secondaryColor}
-          {formData.catAppearance.tertiaryColor}
+          {formData.catAppearance.colors.primary}
+          {formData.catAppearance.colors.secondary}
+          {formData.catAppearance.colors.tertiary}
           {formData.catAppearance.pattern}
         </li>
         <li>
           <span>Police Reported: </span>
-          {formData.reporterInfo.policeReported}
+          {formData.eventInfo.policeReported}
         </li>
         <li>
           <span>Additional Information: </span>{" "}
-          {formData.reporterInfo.additionalInformation}
+          {formData.eventInfo.additionalInformation}
         </li>
         <li>
-          <span>Private contact information: </span>
-          {formData.reporterInfo.privateInformation}
+          <span>Phonenr: </span>
+          {formData.eventInfo.reporterInfo.phoneNr}
         </li>
         <li>
-          <span>Public contact information: </span>
-          {formData.reporterInfo.publicInformation}
+          <span>Phonenr: </span>
+          {formData.eventInfo.reporterInfo.email}
         </li>
+
         <li>
           <span>Outside or Inside:</span> {formData.catStatus.outsideOrInside}
         </li>
         <li>
           <span>Overall Status: </span>
-          {formData.catStatus.overallStatus}
+          {formData.catStatus.overallStatuses}
         </li>
         <li>
           <span>Specific Status: </span>
-          {formData.catStatus.specificStatus}
+          {formData.catStatus.specificStatuses}
         </li>
       </ul>
       <p>Thank you for your submission!</p>

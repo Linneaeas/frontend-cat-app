@@ -5,15 +5,7 @@ import {
   FormQuestions,
 } from "./step-styles";
 import React, { useState } from "react";
-import {
-  ages,
-  genders,
-  furs,
-  primaryColors,
-  secondaryColors,
-  tertiaryColors,
-  patterns,
-} from "../cat-data";
+import { ages, genders, furs, colors, patterns } from "../cat-data";
 
 export const CatAppearance = ({ formData, setFormData }) => {
   const [imageInputs, setImageInputs] = useState([null]); // Array to keep track of image inputs
@@ -45,7 +37,7 @@ export const CatAppearance = ({ formData, setFormData }) => {
 
   return (
     <StepContainer>
-      <h4>3.Appearance</h4>
+      <h4>3. Appearance</h4>
 
       <label>
         <FormQuestions>Age:</FormQuestions>
@@ -56,7 +48,7 @@ export const CatAppearance = ({ formData, setFormData }) => {
               ...prevData,
               catAppearance: {
                 ...prevData.catAppearance,
-                age: e.target.value, // Update age within catDetails
+                age: e.target.value, // Update age
               },
             }))
           }
@@ -78,7 +70,7 @@ export const CatAppearance = ({ formData, setFormData }) => {
               ...prevData,
               catAppearance: {
                 ...prevData.catAppearance,
-                gender: e.target.value, // Update gender within catDetails
+                gender: e.target.value, // Update gender
               },
             }))
           }
@@ -100,7 +92,7 @@ export const CatAppearance = ({ formData, setFormData }) => {
               ...prevData,
               catAppearance: {
                 ...prevData.catAppearance,
-                fur: e.target.value, // Update fur within catDetails
+                fur: e.target.value, // Update fur
               },
             }))
           }
@@ -113,66 +105,79 @@ export const CatAppearance = ({ formData, setFormData }) => {
         </Select>
       </label>
 
+      {/* Primary Color */}
       <label>
         <FormQuestions>Primary Color:</FormQuestions>
         <Select
-          value={formData.catAppearance.primaryColor}
+          value={formData.catAppearance.colors.primary}
           onChange={(e) =>
             setFormData((prevData) => ({
               ...prevData,
               catAppearance: {
                 ...prevData.catAppearance,
-                primaryColor: e.target.value,
+                colors: {
+                  ...prevData.catAppearance.colors,
+                  primary: e.target.value, // Update primary color
+                },
               },
             }))
           }
         >
-          {primaryColors.map((primaryColor, index) => (
-            <option key={index} value={primaryColor}>
-              {primaryColor}
-            </option>
-          ))}
-        </Select>
-      </label>
-      <label>
-        <FormQuestions>Secondary Color:</FormQuestions>
-        <Select
-          value={formData.catAppearance.secondaryColor}
-          onChange={(e) =>
-            setFormData((prevData) => ({
-              ...prevData,
-              catAppearance: {
-                ...prevData.catAppearance,
-                secondaryColor: e.target.value,
-              },
-            }))
-          }
-        >
-          {secondaryColors.map((secondaryColor, index) => (
-            <option key={index} value={secondaryColor}>
-              {secondaryColor}
+          {colors.map((color, index) => (
+            <option key={index} value={color}>
+              {color}
             </option>
           ))}
         </Select>
       </label>
 
+      {/* Secondary Color */}
       <label>
-        <FormQuestions>Tertiary Color:</FormQuestions>
+        <FormQuestions>Secondary Color:</FormQuestions>
         <Select
-          value={formData.catAppearance.tertiaryColor}
+          value={formData.catAppearance.colors.secondary}
           onChange={(e) =>
             setFormData((prevData) => ({
               ...prevData,
               catAppearance: {
                 ...prevData.catAppearance,
-                tertiaryColor: e.target.value,
+                colors: {
+                  ...prevData.catAppearance.colors,
+                  secondary: e.target.value, // Update secondary color
+                },
               },
             }))
           }
         >
-          {tertiaryColors.map((tertiaryColor, index) => (
-            <option key={index} value={tertiaryColor}>
-              {tertiaryColor}
+          {colors.map((color, index) => (
+            <option key={index} value={color}>
+              {color}
+            </option>
+          ))}
+        </Select>
+      </label>
+
+      {/* Tertiary Color */}
+      <label>
+        <FormQuestions>Tertiary Color:</FormQuestions>
+        <Select
+          value={formData.catAppearance.colors.tertiary}
+          onChange={(e) =>
+            setFormData((prevData) => ({
+              ...prevData,
+              catAppearance: {
+                ...prevData.catAppearance,
+                colors: {
+                  ...prevData.catAppearance.colors,
+                  tertiary: e.target.value, // Update tertiary color
+                },
+              },
+            }))
+          }
+        >
+          {colors.map((color, index) => (
+            <option key={index} value={color}>
+              {color}
             </option>
           ))}
         </Select>
@@ -187,7 +192,7 @@ export const CatAppearance = ({ formData, setFormData }) => {
               ...prevData,
               catAppearance: {
                 ...prevData.catAppearance,
-                pattern: e.target.value,
+                pattern: e.target.value, // Update pattern
               },
             }))
           }
