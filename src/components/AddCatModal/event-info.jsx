@@ -1,19 +1,8 @@
-import {
-  StepContainer,
-  RadioGroup,
-  RadioLabel,
-  Select,
-  RadioInput,
-  CheckboxGroup,
-  CheckboxLabel,
-  CheckboxInput,
-  FormQuestions,
-  Input,
-} from "./step-styles";
+import { StepContainer, FormQuestions, Input } from "./step-styles";
 import UserLocationMap from "../UserLocationMap/user-location-map";
 import React, { useState } from "react";
 
-export const Step1 = ({ formData, setFormData }) => {
+export const EventInfo = ({ formData, setFormData }) => {
   const [viewState, setViewState] = useState({
     longitude: 18.0686,
     latitude: 59.3293,
@@ -23,9 +12,9 @@ export const Step1 = ({ formData, setFormData }) => {
   const handleLocationSelect = (address) => {
     setFormData((prevData) => ({
       ...prevData,
-      location: {
+      eventInfo: {
         ...prevData.eventInfo,
-        address,
+        address, // Save the selected address (current or typed)
         longitude: viewState.longitude,
         latitude: viewState.latitude,
       },
@@ -51,6 +40,7 @@ export const Step1 = ({ formData, setFormData }) => {
           }
         />
       </label>
+
       <UserLocationMap
         viewState={viewState}
         setViewState={setViewState}
@@ -58,6 +48,7 @@ export const Step1 = ({ formData, setFormData }) => {
         height="300px"
         width="100%"
       />
+
       <label>
         <FormQuestions>Chosen address:</FormQuestions>
         <p>{formData.eventInfo.address || "No address selected"}</p>
@@ -66,4 +57,4 @@ export const Step1 = ({ formData, setFormData }) => {
   );
 };
 
-export default Step1;
+export default EventInfo;

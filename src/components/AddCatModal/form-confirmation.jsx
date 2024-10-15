@@ -24,8 +24,8 @@ const FormConfirmation = ({ formData }) => {
         <li>
           <span>Pictures:</span>
           <div>
-            {formData.catDetails.pictures &&
-              formData.catDetails.pictures.map((picture, index) => (
+            {formData.catAppearance.pictures &&
+              formData.catAppearance.pictures.map((picture, index) => (
                 <ImagePreview
                   key={index}
                   src={picture}
@@ -35,33 +35,36 @@ const FormConfirmation = ({ formData }) => {
           </div>
         </li>
         <li>
-          <span>Date:</span> {formData.reporterInfo.date}
+          <span>Date:</span> {formData.eventInfo.date}
         </li>
         <li>
           <span>Address: </span>
-          {formData.location.address}
+          {formData.eventInfo.address}
         </li>
         <li>
           <span>Longitude: </span>
-          {formData.location.longitude}
+          {formData.eventInfo.longitude}
         </li>
         <li>
           <span>Latitude: </span>
-          {formData.location.latitude}
+          {formData.eventInfo.latitude}
         </li>
         <li>
-          <span>Age:</span> {formData.catDetails.age}
+          <span>Age:</span> {formData.catAppearance.age}
         </li>
         <li>
-          <span>Gender:</span> {formData.catDetails.gender}
+          <span>Gender:</span> {formData.catAppearance.gender}
         </li>
         <li>
           <span>Fur: </span>
-          {formData.catDetails.fur}
+          {formData.catAppearance.fur}
         </li>
         <li>
           <span>Color: </span>
-          {formData.catDetails.color}
+          {formData.catAppearance.primaryColor}
+          {formData.catAppearance.secondaryColor}
+          {formData.catAppearance.tertiaryColor}
+          {formData.catAppearance.pattern}
         </li>
         <li>
           <span>Police Reported: </span>
@@ -80,15 +83,15 @@ const FormConfirmation = ({ formData }) => {
           {formData.reporterInfo.publicInformation}
         </li>
         <li>
-          <span>Outside or Inside:</span> {formData.catDetails.outsideOrInside}
+          <span>Outside or Inside:</span> {formData.catStatus.outsideOrInside}
         </li>
         <li>
           <span>Overall Status: </span>
-          {formData.catDetails.overallStatus}
+          {formData.catStatus.overallStatus}
         </li>
         <li>
           <span>Specific Status: </span>
-          {formData.catDetails.specificStatus}
+          {formData.catStatus.specificStatus}
         </li>
       </ul>
       <p>Thank you for your submission!</p>

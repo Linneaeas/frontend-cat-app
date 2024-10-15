@@ -201,7 +201,6 @@ const UserLocationMap = ({
                 onFocus={handleInputFocus}
                 placeholder="Type an address"
               />
-              <SearchButton type="submit">S</SearchButton>
             </AddressForm>
           )}
 

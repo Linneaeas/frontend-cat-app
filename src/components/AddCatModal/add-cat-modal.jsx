@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles";
-import Step1 from "./step1";
-import Step2 from "./step2";
-import Step3 from "./step3";
-import Step4 from "./step4";
-import Step5 from "./step5";
+import EventInfo from "./event-info";
+import CatStatus from "./cat-status";
+import CatAppearance from "./cat-appearance";
+import ReporterInfo from "./reporter-info";
 import FormConfirmation from "./form-confirmation";
 
 const ModalOverlay = styled.div`
@@ -54,7 +53,7 @@ const Headline2 = styled.h2`
   left: 10px;
 `;
 
-const AddCatModal = ({ onClose }) => {
+const AddSeenCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -65,11 +64,13 @@ const AddCatModal = ({ onClose }) => {
       latitude: "",
     },
     catStatus: {
-      missingOrSeen: "Seen",
       name: "Mjau doe",
       outsideOrInside: "Outside",
       overallStatus: "Healthy",
       specificStatus: "",
+      hasOwner: "No",
+      chipNumber: "",
+      tattoo: "No",
     },
     catAppearance: {
       age: "Don't know",
@@ -107,30 +108,25 @@ const AddCatModal = ({ onClose }) => {
             <CloseButton onClick={onClose}>X</CloseButton>
             <Headline2>Add a cat</Headline2>
             <form>
-              {/*date, county, address*/}
               {step === 0 && (
-                <Step1 formData={formData} setFormData={setFormData} />
+                <EventInfo formData={formData} setFormData={setFormData} />
               )}
               {/*outsideOrInside, overallStatus, specificStatus*/}
               {step === 1 && (
-                <Step2 formData={formData} setFormData={setFormData} />
+                <CatStatus formData={formData} setFormData={setFormData} />
               )}
               {/*age, gender, fur, pictures*/}
               {step === 2 && (
-                <Step3 formData={formData} setFormData={setFormData} />
+                <CatAppearance formData={formData} setFormData={setFormData} />
               )}
               {/*color*/}
               {step === 3 && (
-                <Step4 formData={formData} setFormData={setFormData} />
-              )}
-              {/*reported, additionalInformation, reporterPrivateInformation, reporterPublicInformation*/}
-              {step === 4 && (
-                <Step5 formData={formData} setFormData={setFormData} />
+                <ReporterInfo formData={formData} setFormData={setFormData} />
               )}
             </form>
             <div>
               {step > 0 && <Button onClick={prevStep}>Previous</Button>}
-              {step < 4 ? (
+              {step < 3 ? (
                 <Button onClick={nextStep}>Next</Button>
               ) : (
                 <Button onClick={handleSubmit}>Submit</Button>
@@ -150,4 +146,4 @@ const AddCatModal = ({ onClose }) => {
   );
 };
 
-export default AddCatModal;
+export default AddSeenCatModal;

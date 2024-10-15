@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const reporteds = ["No", "Yes"];
 
-export const Step5 = ({ formData, setFormData }) => {
+export const ReporterInfo = ({ formData, setFormData }) => {
   return (
     <StepContainer>
       <h4>5. Information</h4>
@@ -85,4 +85,4 @@ export const Step5 = ({ formData, setFormData }) => {
   );
 };
 
-export default Step5;
+export default ReporterInfo;

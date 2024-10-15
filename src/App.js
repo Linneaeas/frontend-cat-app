@@ -9,7 +9,7 @@ import CatProfiles from "./pages/Cats/cat-profiles.jsx";
 import SuccessStories from "./pages/Cats/success-stories.jsx";
 import Missions from "./pages/Missions/missions.jsx";
 import FosterHome from "./pages/FosterHome/foster-home.jsx";
-import AddCatModal from "./components/AddCatModal/add-cat-modal.jsx";
+import AddSeenCatModal from "./components/AddCatModal/add-cat-modal.jsx";
 import HomePage from "./pages/home.jsx";
 import LoginModal from "./components/login-modal.jsx";
 import CreateAccount from "./pages/Account/create-account.jsx";
@@ -53,7 +53,9 @@ function App() {
         </Routes>
       </Router>
       <Fab onClick={handleFabClick} />
-      {isAddCatModalOpen && <AddCatModal onClose={handleCloseAddCatModal} />}
+      {isAddCatModalOpen && (
+        <AddSeenCatModal onClose={handleCloseAddCatModal} />
+      )}
       {isLoginModalOpen && <LoginModal onClose={handleCloseLoginModal} />}
     </div>
   );
