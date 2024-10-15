@@ -1,7 +1,6 @@
 import { Input, StepContainer, Select } from "./step-styles";
 import React, { useState } from "react";
-
-const reporteds = ["No", "Yes"];
+import { policeReportedOptions } from "../cat-data";
 
 export const ReporterInfo = ({ formData, setFormData }) => {
   return (
@@ -22,7 +21,7 @@ export const ReporterInfo = ({ formData, setFormData }) => {
             }))
           }
         >
-          {reporteds.map((policeReported, index) => (
+          {policeReportedOptions.map((policeReported, index) => (
             <option key={index} value={policeReported}>
               {policeReported}
             </option>

@@ -6,6 +6,7 @@ import CatStatus from "./cat-status";
 import CatAppearance from "./cat-appearance";
 import ReporterInfo from "./reporter-info";
 import FormConfirmation from "./form-confirmation";
+import { defaultCatData } from "../cat-data";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -56,40 +57,7 @@ const Headline2 = styled.h2`
 const AddSeenCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    eventInfo: {
-      date: "",
-      address: "",
-      longitude: "",
-      latitude: "",
-    },
-    catStatus: {
-      name: "Mjau doe",
-      outsideOrInside: "Outside",
-      overallStatus: "Healthy",
-      specificStatus: "",
-      hasOwner: "No",
-      chipNumber: "",
-      tattoo: "No",
-    },
-    catAppearance: {
-      age: "Don't know",
-      gender: "Don't know",
-      fur: "Don't know",
-      pictures: "",
-      primaryColor: "",
-      secondaryColor: "",
-      secondaryColor: "",
-      tertiaryColor: "",
-      pattern: "",
-    },
-    reporterInfo: {
-      policeReported: "No",
-      additionalInformation: "",
-      privateInformation: "",
-      publicInformation: "",
-    },
-  });
+  const [formData, setFormData] = useState(defaultCatData);
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);

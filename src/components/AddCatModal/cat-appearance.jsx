@@ -5,20 +5,15 @@ import {
   FormQuestions,
 } from "./step-styles";
 import React, { useState } from "react";
-
-const ages = ["Don't know", "Kitten", "Adult"];
-const genders = ["Don't know", "Male", "Female"];
-const furs = [
-  "Don't know",
-  "Shorthair",
-  "Longhair/Semilonghair",
-  "No fur/Sphynx",
-];
-
-const primaryColors = ["White", "Black", "Orange", "Grey"];
-const secondaryColors = ["White", "Black", "Orange", "Grey"];
-const tertiaryColors = ["White", "Black", "Orange", "Grey"];
-const patterns = ["Solid", "Spots", "Pointed", "Striped", "Striped spots"];
+import {
+  ages,
+  genders,
+  furs,
+  primaryColors,
+  secondaryColors,
+  tertiaryColors,
+  patterns,
+} from "../cat-data";
 
 export const CatAppearance = ({ formData, setFormData }) => {
   const [imageInputs, setImageInputs] = useState([null]); // Array to keep track of image inputs

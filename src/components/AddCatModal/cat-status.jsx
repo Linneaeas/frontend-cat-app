@@ -9,34 +9,9 @@ import {
   CheckboxInput,
   FormQuestions,
 } from "./step-styles";
+import { outsideOrInside, overallStatuses, specificStatus } from "../cat-data";
 
 export const CatStatus = ({ formData, setFormData }) => {
-  const outsideOrInside = [
-    { label: "Inside", value: "Inside" },
-    { label: "Outside", value: "Outside" },
-  ];
-
-  const overallStatuses = [
-    "Healthy",
-    "Not so healthy",
-    "Need help asap",
-    "Deceased",
-  ];
-
-  const specificStatus = [
-    { label: "Appears healthy and taken care of", value: "healthy" },
-    { label: "Doesn't seem well taken care of", value: "notWellCared" },
-    { label: "In need of help asap", value: "needHelp" },
-    { label: "Contact seeking", value: "contactSeeking" },
-    { label: "Hungry", value: "hungry" },
-    { label: "Alot of knots in the fur", value: "knots" },
-    { label: "Limping", value: "limping" },
-    { label: "Skinny", value: "skinny" },
-    { label: "Healing wounds", value: "healingWounds" },
-    { label: "Open wounds", value: "openWounds" },
-    { label: "Seriously injured", value: "seriouslyInjured" },
-  ];
-
   const handleCheckboxChange = (e, groupName) => {
     const { value, checked } = e.target;
     const updatedStatus = checked
