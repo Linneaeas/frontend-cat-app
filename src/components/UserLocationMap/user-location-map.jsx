@@ -22,7 +22,9 @@ const UserLocationMap = ({
   onLocationSelect,
   height = "100vh",
   width = "100%",
+  newCatCoordinates = {},
 }) => {
+  const { newCatLatitude = null, newCatLongitude = null } = newCatCoordinates;
   const [viewState, setViewState] = useState({
     longitude: 18.0686, // Default to Stockholm
     latitude: 59.3293, // Default to Stockholm
@@ -165,6 +167,15 @@ const UserLocationMap = ({
     setSuggestions([]); // Clear suggestions when focusing the input
   };
 
+  useEffect(() => {
+    if (newCatLatitude && newCatLongitude) {
+      setViewState({
+        longitude: newCatLongitude,
+        latitude: newCatLatitude,
+        zoom: 12, // Adjust zoom level as needed
+      });
+    }
+  }, [newCatCoordinates]);
   return (
     <ContainerDiv>
       <HeaderDiv>
@@ -241,6 +252,14 @@ const UserLocationMap = ({
               color="blue"
             />
           )
+        )}
+        {/* Conditionally render the cat's coordinates on the map */}
+        {newCatLatitude && newCatLongitude && (
+          <Marker
+            longitude={newCatLongitude}
+            latitude={newCatLatitude}
+            color="red" // Different color for cat marker
+          />
         )}
       </Map>
     </ContainerDiv>

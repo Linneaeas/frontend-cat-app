@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles";
 import EventInfo from "./event-info";
@@ -8,6 +8,7 @@ import ReporterInfo from "./reporter-info";
 import FormConfirmation from "./form-confirmation";
 import { defaultCatData } from "../cat-data";
 import axios from "axios";
+import io from "socket.io-client";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -55,6 +56,8 @@ const Headline2 = styled.h2`
   left: 10px;
 `;
 
+const socket = io("http://localhost:3001");
+
 const AddSeenCatModal = ({ onClose }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -63,25 +66,29 @@ const AddSeenCatModal = ({ onClose }) => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
+  // Handle form submission via Socket.IO
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form behavior
+    e.preventDefault(); // Prevent the default form behavior
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/submit-cat",
-        formData
-      );
-      console.log("Submission Response:", response.data);
-      setIsSubmitted(true); // Set submitted state to true
-    } catch (error) {
-      console.error("Submission Error:", error);
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        console.error("Response data:", error.response.data);
-      }
-      // Show an alert or message to the user about the error
-    }
+    // Send the cat data to the server through the Socket.IO connection
+    socket.emit("new-cat", formData);
+
+    // Confirm submission on the client
+    setIsSubmitted(true);
   };
+
+  // Handle the real-time update when a new cat is added
+  useEffect(() => {
+    socket.on("cat-updated", (change) => {
+      console.log("Real-time update from server:", change);
+      // Optionally, you can handle any specific UI updates here when cats are added
+    });
+
+    // Cleanup the socket connection when the component is unmounted
+    return () => {
+      socket.off("cat-updated");
+    };
+  }, []);
   return (
     <>
       {!isSubmitted ? (

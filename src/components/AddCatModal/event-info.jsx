@@ -9,14 +9,14 @@ export const EventInfo = ({ formData, setFormData }) => {
     zoom: 10,
   });
 
-  const handleLocationSelect = (address) => {
+  const handleLocationSelect = (address, longitude, latitude) => {
     setFormData((prevData) => ({
       ...prevData,
       eventInfo: {
         ...prevData.eventInfo,
-        address, // Save the selected address (current or typed)
-        longitude: viewState.longitude,
-        latitude: viewState.latitude,
+        address,
+        longitude,
+        latitude,
       },
     }));
   };
@@ -52,6 +52,8 @@ export const EventInfo = ({ formData, setFormData }) => {
       <label>
         <FormQuestions>Chosen address:</FormQuestions>
         <p>{formData.eventInfo.address || "No address selected"}</p>
+        <p>{formData.eventInfo.longitude || "No lo selected"}</p>
+        <p>{formData.eventInfo.langitude || "No la selected"}</p>
       </label>
     </StepContainer>
   );
