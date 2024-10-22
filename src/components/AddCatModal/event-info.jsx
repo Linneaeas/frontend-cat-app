@@ -53,7 +53,7 @@ export const EventInfo = ({ formData, setFormData }) => {
         <FormQuestions>Chosen address:</FormQuestions>
         <p>{formData.eventInfo.address || "No address selected"}</p>
         <p>{formData.eventInfo.longitude || "No lo selected"}</p>
-        <p>{formData.eventInfo.langitude || "No la selected"}</p>
+        <p>{formData.eventInfo.latitude || "No la selected"}</p>
       </label>
     </StepContainer>
   );
