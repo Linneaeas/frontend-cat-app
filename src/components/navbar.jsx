@@ -47,7 +47,6 @@ const DropdownLink = styled(Link)`
 function DropdownKatter() {
   return (
     <Dropdown>
-      <DropdownLink to="/cat-map">Cat Map</DropdownLink>
       <DropdownLink to="/cat-profiles">Cat Profiles</DropdownLink>
       <DropdownLink to="/success-stories">Success Stories</DropdownLink>
     </Dropdown>

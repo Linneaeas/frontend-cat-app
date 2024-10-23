@@ -42,12 +42,12 @@ function App() {
         <Navbar onLoginClick={handleLoginClick} />
         <Routes>
           {/* MAIN ROUTES */}
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<CatMap />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/foster-home" element={<FosterHome />} />
           <Route path="/create-account" element={<CreateAccount />}></Route>
           {/* CATEGORY ROUTES */}
-          <Route path="/cat-map" element={<CatMap />} />
+
           <Route path="/cat-profiles" element={<CatProfiles />} />
           <Route path="/success-stories" element={<SuccessStories />} />
         </Routes>

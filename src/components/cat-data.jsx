@@ -26,7 +26,6 @@ export const defaultCatData = {
     hasTattoo: "Vet ej",
     tattooNumber: "",
     neutered: "Vet ej",
-    profilePicture: "", //Users can select which picture is the best to use as a profile pic, based on the pictures in the cats profile that has been uploaded on the events.
     registeredJordbruksverket: "", // If the cat is registered at jordbruksverket with the chip or tattoo.
   },
   catStatus: {
@@ -38,6 +37,7 @@ export const defaultCatData = {
 
   catAppearance: {
     //this can be updated, but the previous info schould also be stored as it would be displayed on the cats feed/timeline with date, for ex: 10 oct, by username123: age was changed from "don't know" to "kitten". Also sometimes you might not have seen the cat so close etc, so other users have the option to change this.
+    profilePicture: "", //Users can select which picture is the best to use as a profile pic, based on the pictures in the cats profile that has been uploaded on the events.
     pictures: [],
     age: "Vet ej",
     gender: "Vet ej",
@@ -74,10 +74,11 @@ export const outsideOrInside = [
 ];
 
 export const overallStatuses = [
-  "Frisk och omhändertagen",
-  "Frisk men ej välvårdad/omhändertagen",
-  "Ej i bra skick, sjuk eller skadad",
-  "Jättedåligt skick, assistans behövs snarast",
+  "Verkar frisk katt",
+  "Utekatt med registrerad ägare",
+  "Ägare har inget konto, men andra har rapporterat att katten har ägare och ej försvunnen",
+  "Katten ser ej omhändertagen ut. T.ex. okastrerad, ovälvårdad, överdrivet kontaktsökande, hungrig eller annat som kan tyda på att katten är vilsen.",
+  "Katten behöver tas in omgående(skadad, kattunge etc)",
   "Avliden",
 ];
 
@@ -96,25 +97,25 @@ export const specificStatuses = [
 export const ages = ["Vet ej", "Kattunge", "Vuxen"];
 export const genders = ["Vet ej", "Hane", "Hona"];
 export const furs = [
-  "Vet ej",
+  "Vet ej/Obestämbar",
   "Korthårig",
   "Långhårig/Semilånghårig",
   "Ingen päls/Nakenkatt",
 ];
 export const colors = [
+  "Övrig/Obestämbar",
   "Vit",
   "Svart",
   "Orange",
   "Grå",
   "Brun",
-  "Övrig/Obestämbar",
 ];
 
 export const patterns = [
+  "Övrig/Obestämbar",
   "Enfärgad",
   "Fläckig",
   "Pointed(ansikte, tassar, svans)",
   "Randig",
   "Randiga fläckar",
-  "Övrig/Obestämbar",
 ];

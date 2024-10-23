@@ -6,6 +6,7 @@ import CatStatus from "./cat-status";
 import CatAppearance from "./cat-appearance";
 import ReporterInfo from "./reporter-info";
 import FormConfirmation from "./form-confirmation";
+import Pictures from "./pictures";
 import { defaultCatData } from "../cat-data";
 import axios from "axios";
 import io from "socket.io-client";
@@ -100,22 +101,25 @@ const AddSeenCatModal = ({ onClose }) => {
               {step === 0 && (
                 <EventInfo formData={formData} setFormData={setFormData} />
               )}
-              {/*outsideOrInside, overallStatus, specificStatus*/}
+
               {step === 1 && (
                 <CatStatus formData={formData} setFormData={setFormData} />
               )}
-              {/*age, gender, fur, pictures*/}
+
               {step === 2 && (
                 <CatAppearance formData={formData} setFormData={setFormData} />
               )}
-              {/*color*/}
               {step === 3 && (
+                <Pictures formData={formData} setFormData={setFormData} />
+              )}
+
+              {step === 4 && (
                 <ReporterInfo formData={formData} setFormData={setFormData} />
               )}
             </form>
             <div>
               {step > 0 && <Button onClick={prevStep}>Previous</Button>}
-              {step < 3 ? (
+              {step < 4 ? (
                 <Button onClick={nextStep}>Next</Button>
               ) : (
                 <Button onClick={handleSubmit}>Submit</Button>
