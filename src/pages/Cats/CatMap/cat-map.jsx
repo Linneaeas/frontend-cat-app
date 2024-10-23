@@ -3,54 +3,101 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import UserLocationMap from "../../../components/UserLocationMap/user-location-map";
 import io from "socket.io-client";
+import axios from "axios";
 
 const socket = io("http://localhost:3001");
 
 const CatMapContainer = styled.div`
-  height: 100vh; /* Fullscreen height */
-  width: 100vw; /* Fullscreen width */
+  height: 100vh;
+  width: 100vw;
 `;
 
 function CatMap() {
   const [viewState, setViewState] = useState({
-    longitude: 18.0686, // Default to Stockholm
-    latitude: 59.3293, // Default to Stockholm
+    longitude: 18.0686,
+    latitude: 59.3293,
     zoom: 10,
   });
 
-  // This function will be called when a location is selected
-  const handleLocationSelect = (location) => {
-    console.log("Selected location:", location);
-    // You can update your state or perform any action you need with the location
-  };
-
-  const [catUpdates, setCatUpdates] = useState([]);
+  // State for existing and new cats
+  const [observedCats, setObservedCats] = useState([]);
   const [newCatCoordinates, setNewCatCoordinates] = useState({
-    newCatLatitude: null,
-    newCatLongitude: null,
+    newCatLatitude: 0,
+    newCatLongitude: 0,
   });
-  useEffect(() => {
-    // Listen for real-time updates from the backend
-    socket.on("cat-updated", (update) => {
-      console.log("Real-time update received catmap row 35:", update);
-      setCatUpdates((prevUpdates) => [...prevUpdates, update]);
 
-      // Extract latitude and longitude from the update
+  // Fetch existing cats on component mount
+  useEffect(() => {
+    const fetchExistingCats = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/cats");
+        // Transform the data to match the format needed for markers
+        const transformedCats = response.data.map((cat) => ({
+          id: cat._id,
+          latitude: cat.eventInfo.latitude,
+          longitude: cat.eventInfo.longitude,
+          // Add any other properties you want to display
+          status: cat.status,
+          date: cat.eventInfo.date,
+        }));
+        setObservedCats(transformedCats);
+      } catch (error) {
+        console.error("Error fetching existing cats:", error);
+      }
+    };
+
+    fetchExistingCats();
+  }, []);
+
+  // Handle real-time updates
+  useEffect(() => {
+    socket.on("cat-updated", (update) => {
+      console.log("Real-time update received:", update);
+
       const { latitude, longitude } = update.fullDocument.eventInfo || {};
-      console.log("Received coordinates catmap row 40:", latitude, longitude);
+
       if (latitude && longitude) {
+        // Update new cat coordinates
         setNewCatCoordinates({
           newCatLatitude: latitude,
           newCatLongitude: longitude,
         });
+
+        // Add the new cat to observed cats
+        setObservedCats((prevCats) => {
+          const newCat = {
+            id: update.fullDocument._id,
+            latitude: latitude,
+            longitude: longitude,
+            status: update.fullDocument.status,
+            date: update.fullDocument.eventInfo.date,
+          };
+
+          // Check if cat already exists, if so update it, if not add it
+          const existingCatIndex = prevCats.findIndex(
+            (cat) => cat.id === newCat.id
+          );
+          if (existingCatIndex >= 0) {
+            const updatedCats = [...prevCats];
+            updatedCats[existingCatIndex] = newCat;
+            return updatedCats;
+          } else {
+            return [...prevCats, newCat];
+          }
+        });
       }
     });
 
-    // Clean up the effect when the component is unmounted
+    // Clean up
     return () => {
       socket.off("cat-updated");
     };
   }, []);
+
+  const handleLocationSelect = (location) => {
+    console.log("Selected location:", location);
+    // Handle location selection if needed
+  };
 
   return (
     <CatMapContainer>
@@ -60,6 +107,8 @@ function CatMap() {
         setViewState={setViewState}
         onLocationSelect={handleLocationSelect}
         newCatCoordinates={newCatCoordinates}
+        showObservedCats={true}
+        observedCats={observedCats}
       />
     </CatMapContainer>
   );

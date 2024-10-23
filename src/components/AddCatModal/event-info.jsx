@@ -9,16 +9,24 @@ export const EventInfo = ({ formData, setFormData }) => {
     zoom: 10,
   });
 
-  const handleLocationSelect = (address, longitude, latitude) => {
+  const handleLocationSelect = ({ address, coordinates }) => {
     setFormData((prevData) => ({
       ...prevData,
       eventInfo: {
         ...prevData.eventInfo,
-        address,
-        longitude,
-        latitude,
+        address: address,
+        longitude: coordinates.longitude,
+        latitude: coordinates.latitude,
       },
     }));
+  };
+
+  // Helper function to format coordinates
+  const formatCoordinate = (value) => {
+    if (typeof value === "number") {
+      return value.toFixed(4);
+    }
+    return null;
   };
 
   return (
@@ -42,18 +50,25 @@ export const EventInfo = ({ formData, setFormData }) => {
       </label>
 
       <UserLocationMap
-        viewState={viewState}
-        setViewState={setViewState}
         onLocationSelect={handleLocationSelect}
         height="300px"
         width="100%"
+        showObservedCats={false}
       />
 
       <label>
         <FormQuestions>Chosen address:</FormQuestions>
         <p>{formData.eventInfo.address || "No address selected"}</p>
-        <p>{formData.eventInfo.longitude || "No lo selected"}</p>
-        <p>{formData.eventInfo.latitude || "No la selected"}</p>
+        <p>
+          Longitude:{" "}
+          {formatCoordinate(formData.eventInfo.longitude) ||
+            "No longitude selected"}
+        </p>
+        <p>
+          Latitude:{" "}
+          {formatCoordinate(formData.eventInfo.latitude) ||
+            "No latitude selected"}
+        </p>
       </label>
     </StepContainer>
   );

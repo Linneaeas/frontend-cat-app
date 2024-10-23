@@ -252,27 +252,28 @@ const UserLocationMap = ({
           />
         )}
         {/* Only show observed cats and new cat marker if showObservedCats is true */}
-        {showObservedCats && (
-          <>
-            {/* Existing observed cats */}
-            {observedCats.map((cat) => (
-              <Marker
-                key={cat.id}
-                longitude={cat.longitude}
-                latitude={cat.latitude}
-                color="orange"
-              />
-            ))}
+        {/* Existing observed cats */}
+        {showObservedCats &&
+          observedCats.map(
+            (cat) =>
+              cat.latitude &&
+              cat.longitude && (
+                <Marker
+                  key={cat.id}
+                  longitude={cat.longitude}
+                  latitude={cat.latitude}
+                  color="orange"
+                />
+              )
+          )}
 
-            {/* New cat marker */}
-            {newCatLatitude && newCatLongitude && (
-              <Marker
-                longitude={newCatLongitude}
-                latitude={newCatLatitude}
-                color="red"
-              />
-            )}
-          </>
+        {/* New cat marker */}
+        {newCatLatitude && newCatLongitude && (
+          <Marker
+            longitude={newCatLongitude}
+            latitude={newCatLatitude}
+            color="red"
+          />
         )}
       </Map>
     </ContainerDiv>
