@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker } from "react-map-gl";
+import { CatMarker } from "../../pages/Cats/CatMap/cat-marker";
 import axios from "axios";
 import {
   ContainerDiv,
@@ -23,6 +24,7 @@ const UserLocationMap = ({
   newCatCoordinates = {},
   showObservedCats = false,
   observedCats = [],
+  getSymbolForStatus,
 }) => {
   const { newCatLatitude = null, newCatLongitude = null } = newCatCoordinates;
 
@@ -254,19 +256,21 @@ const UserLocationMap = ({
         {/* Only show observed cats and new cat marker if showObservedCats is true */}
         {/* Existing observed cats */}
         {showObservedCats &&
-          observedCats.map(
-            (cat) =>
-              cat.latitude &&
-              cat.longitude && (
-                <Marker
-                  key={cat.id}
-                  longitude={cat.longitude}
-                  latitude={cat.latitude}
-                  color={cat.color}
+          observedCats.map((cat) =>
+            cat.latitude && cat.longitude ? (
+              <Marker
+                key={cat.id}
+                longitude={cat.longitude}
+                latitude={cat.latitude}
+              >
+                <CatMarker
+                  BackgroundColor={cat.color}
+                  symbolSrc={getSymbolForStatus(cat.status)}
+                  isDeceased={cat.status === "Avliden"}
                 />
-              )
+              </Marker>
+            ) : null
           )}
-
         {/* New cat marker */}
         {newCatLatitude && newCatLongitude && (
           <Marker

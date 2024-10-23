@@ -4,6 +4,9 @@ import styled from "@emotion/styled";
 import UserLocationMap from "../../../components/UserLocationMap/user-location-map";
 import io from "socket.io-client";
 import axios from "axios";
+import HeartAngel from "../../../assets/heartangel.jpg";
+import GreenStar from "../../../assets/greenstar.png";
+import WarningSign from "../../../assets/warningsign.png";
 
 const socket = io("http://localhost:3001");
 
@@ -21,6 +24,20 @@ const statusColorMapping = {
     "red",
   "Katten behöver tas in omgående(skadad, kattunge etc)": "red",
   "Avliden": "black",
+};
+
+const getSymbolForStatus = (status) => {
+  console.log(`Getting symbol for status: ${status}`);
+  switch (status) {
+    case "Ägare har inget konto, men andra har rapporterat att katten har ägare och ej försvunnen":
+      return GreenStar;
+    case "Katten behöver tas in omgående(skadad, kattunge etc)":
+      return WarningSign;
+    case "Avliden":
+      return HeartAngel;
+    default:
+      return null;
+  }
 };
 
 function CatMap() {
@@ -120,6 +137,7 @@ function CatMap() {
         newCatCoordinates={newCatCoordinates}
         showObservedCats={true}
         observedCats={observedCats}
+        getSymbolForStatus={getSymbolForStatus}
       />
     </CatMapContainer>
   );
