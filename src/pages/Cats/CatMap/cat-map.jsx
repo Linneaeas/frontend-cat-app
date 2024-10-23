@@ -11,6 +11,17 @@ const CatMapContainer = styled.div`
   height: 100vh;
   width: 100vw;
 `;
+// Color mapping for different cat statuses
+const statusColorMapping = {
+  "Verkar frisk": "yellow",
+  "Utekatt med registrerad ägare": "green",
+  "Ägare har inget konto, men andra har rapporterat att katten har ägare och ej försvunnen":
+    "yellow",
+  "Katten ser ej omhändertagen ut. T.ex. okastrerad, ovälvårdad, överdrivet kontaktsökande, hungrig eller annat som kan tyda på att katten är vilsen":
+    "red",
+  "Katten behöver tas in omgående(skadad, kattunge etc)": "red",
+  "Avliden": "black",
+};
 
 function CatMap() {
   const [viewState, setViewState] = useState({
@@ -36,9 +47,9 @@ function CatMap() {
           id: cat._id,
           latitude: cat.eventInfo.latitude,
           longitude: cat.eventInfo.longitude,
-          // Add any other properties you want to display
-          status: cat.status,
+          status: cat.catStatus.overallStatus,
           date: cat.eventInfo.date,
+          color: statusColorMapping[cat.catStatus.overallStatus] || "gray",
         }));
         setObservedCats(transformedCats);
       } catch (error) {

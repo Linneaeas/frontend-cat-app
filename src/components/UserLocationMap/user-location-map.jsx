@@ -262,7 +262,7 @@ const UserLocationMap = ({
                   key={cat.id}
                   longitude={cat.longitude}
                   latitude={cat.latitude}
-                  color="orange"
+                  color={cat.color}
                 />
               )
           )}

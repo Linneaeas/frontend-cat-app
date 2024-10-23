@@ -1,6 +1,6 @@
 import { StepContainer, FormQuestions, Input } from "./step-styles";
 import UserLocationMap from "../UserLocationMap/user-location-map";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const EventInfo = ({ formData, setFormData }) => {
   const [viewState, setViewState] = useState({
@@ -8,6 +8,28 @@ export const EventInfo = ({ formData, setFormData }) => {
     latitude: 59.3293,
     zoom: 10,
   });
+
+  // Helper function to get today's date in YYYY-MM-DD format
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Set the default date when the component first renders
+  useEffect(() => {
+    if (!formData.eventInfo.date) {
+      setFormData((prevData) => ({
+        ...prevData,
+        eventInfo: {
+          ...prevData.eventInfo,
+          date: getTodayDate(), // Set today's date if not already set
+        },
+      }));
+    }
+  }, [formData, setFormData]);
 
   const handleLocationSelect = ({ address, coordinates }) => {
     setFormData((prevData) => ({
@@ -36,7 +58,7 @@ export const EventInfo = ({ formData, setFormData }) => {
         <FormQuestions>Date when the cat was seen/found:</FormQuestions>
         <Input
           type="date"
-          value={formData.eventInfo.date}
+          value={formData.eventInfo.date || getTodayDate()} // Set the default date if not provided
           onChange={(e) =>
             setFormData({
               ...formData,

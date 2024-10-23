@@ -50,7 +50,7 @@ export const CatStatus = ({ formData, setFormData }) => {
                     ...prevData,
                     catStatus: {
                       ...prevData.catStatus,
-                      outsideOrInside: e.target.value, // Update the outsideOrInside property
+                      outsideOrInside: e.target.value,
                     },
                   }))
                 }

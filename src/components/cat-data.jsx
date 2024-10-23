@@ -31,8 +31,8 @@ export const defaultCatData = {
   catStatus: {
     //Conditions of the cat, this can be updated, but the previous statuses schould also be stored as it would be displayed on the cats feed/timeline with date, for ex: 10 oct, by username123: overall status was changed from "seem healthy" to " in need of assistance".
     outsideOrInside: "Utomhus", // For seen/found cats, if they have been taken inside due to injury/being a kitten or other reasons.
-    overallStatuses: "Verkar frisk", //General status if the cat looks healthy, taken cared of or the opposite.
-    specificStatuses: "", // Specifications where you can highlight and inform in more detail and severity of the overall status.
+    overallStatus: "", //General status if the cat looks healthy, taken cared of or the opposite.
+    specificStatuses: [], // Specifications where you can highlight and inform in more detail and severity of the overall status.
   },
 
   catAppearance: {
@@ -74,10 +74,10 @@ export const outsideOrInside = [
 ];
 
 export const overallStatuses = [
-  "Verkar frisk katt",
+  "Verkar frisk",
   "Utekatt med registrerad ägare",
   "Ägare har inget konto, men andra har rapporterat att katten har ägare och ej försvunnen",
-  "Katten ser ej omhändertagen ut. T.ex. okastrerad, ovälvårdad, överdrivet kontaktsökande, hungrig eller annat som kan tyda på att katten är vilsen.",
+  "Katten ser ej omhändertagen ut. T.ex. okastrerad, ovälvårdad, överdrivet kontaktsökande, hungrig eller annat som kan tyda på att katten är vilsen",
   "Katten behöver tas in omgående(skadad, kattunge etc)",
   "Avliden",
 ];

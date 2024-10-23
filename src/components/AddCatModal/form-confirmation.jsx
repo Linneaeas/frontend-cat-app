@@ -88,7 +88,7 @@ const FormConfirmation = ({ formData }) => {
         </li>
         <li>
           <span>Overall Status: </span>
-          {formData.catStatus.overallStatuses}
+          {formData.catStatus.overallStatus}
         </li>
         <li>
           <span>Specific Status: </span>
