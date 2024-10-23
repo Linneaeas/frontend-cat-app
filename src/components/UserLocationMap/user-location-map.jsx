@@ -8,13 +8,11 @@ import {
   RadioInput,
   AddressForm,
   AddressInput,
-  SearchButton,
   SuggestionsUl,
   SuggestionsLi,
   FirstRowDiv,
   CurrentAddressDiv,
   HeaderDiv,
-  AddressDiv,
   SecondRowDiv,
 } from "./map-styles";
 
@@ -23,31 +21,46 @@ const UserLocationMap = ({
   height = "100vh",
   width = "100%",
   newCatCoordinates = {},
+  showObservedCats = false,
+  observedCats = [],
 }) => {
   const { newCatLatitude = null, newCatLongitude = null } = newCatCoordinates;
+
+  // Map view state
   const [viewState, setViewState] = useState({
-    longitude: 18.0686, // Default to Stockholm
-    latitude: 59.3293, // Default to Stockholm
+    longitude: 18.0686,
+    latitude: 59.3293,
     zoom: 12,
   });
 
+  // User's current location state
   const [userLocation, setUserLocation] = useState(null);
-  const [address, setAddress] = useState("");
-  const [currentAddress, setCurrentAddress] = useState(""); // Store the current address
-  const [suggestions, setSuggestions] = useState([]);
-  const [useCurrentLocation, setUseCurrentLocation] = useState(true);
-  const [markerPosition, setMarkerPosition] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(12); // Initialize zoom level
+  const [userAddress, setUserAddress] = useState("");
 
+  // Selected location state (from either map click or input)
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedAddress, setSelectedAddress] = useState("");
+
+  // UI state
+  const [useCurrentLocation, setUseCurrentLocation] = useState(true);
+  const [inputAddress, setInputAddress] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  // Get user's current location on component mount
   useEffect(() => {
-    // Get user location on component mount
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { longitude, latitude } = position.coords;
-          setUserLocation({ longitude, latitude });
+          const location = { longitude, latitude };
+          setUserLocation(location);
+          setSelectedLocation(location); // Initialize selected location with current location
           setViewState({ longitude, latitude, zoom: 12 });
-          reverseGeocode(longitude, latitude);
+          reverseGeocode(longitude, latitude, (address) => {
+            setUserAddress(address);
+            setSelectedAddress(address); // Initialize selected address with current address
+            setInputAddress(address); // Initialize input field with current address
+          });
         },
         (error) => {
           console.error("Error getting location:", error);
@@ -56,17 +69,19 @@ const UserLocationMap = ({
     }
   }, []);
 
-  const reverseGeocode = async (longitude, latitude) => {
+  // Generic reverse geocoding function
+  const reverseGeocode = async (longitude, latitude, setter) => {
     try {
       const response = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`
       );
-      const userAddress = response.data.features[0]?.place_name;
-      if (userAddress) {
-        setAddress(userAddress);
-        setCurrentAddress(userAddress); // Store the current address
-        setMarkerPosition({ longitude, latitude }); // Set marker position to current location
-        onLocationSelect(userAddress);
+      const address = response.data.features[0]?.place_name;
+      if (address) {
+        setter(address);
+        onLocationSelect({
+          address,
+          coordinates: { longitude, latitude },
+        });
       }
     } catch (error) {
       console.error("Error fetching address:", error);
@@ -74,43 +89,36 @@ const UserLocationMap = ({
   };
 
   const handleMapClick = (event) => {
-    const { lngLat } = event;
-    const longitude = lngLat.lng; // Access longitude
-    const latitude = lngLat.lat; // Access latitude
-
-    setViewState((prevState) => ({
-      ...prevState,
-      longitude,
-      latitude,
-    }));
-
-    // If using the typed address, fetch address of the clicked point
     if (!useCurrentLocation) {
-      reverseGeocode(longitude, latitude);
-      setMarkerPosition({ longitude, latitude }); // Update marker position on map click
+      const { lngLat } = event;
+      const location = { longitude: lngLat.lng, latitude: lngLat.lat };
+      setSelectedLocation(location);
+      setViewState((prev) => ({ ...prev, ...location }));
+      reverseGeocode(location.longitude, location.latitude, (address) => {
+        setSelectedAddress(address);
+        setInputAddress(address);
+      });
     }
   };
 
   const handleMapMove = (evt) => {
     setViewState(evt.viewState);
-    setZoomLevel(evt.viewState.zoom); // Update the zoom level
   };
 
   const handleAddressChange = async (event) => {
-    const inputValue = event.target.value;
-    setAddress(inputValue);
+    const value = event.target.value;
+    setInputAddress(value);
 
-    if (inputValue) {
+    if (value) {
       try {
         const response = await axios.get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-            inputValue
+            value
           )}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`
         );
-        const suggestionsData = response.data.features.map(
-          (feature) => feature.place_name
+        setSuggestions(
+          response.data.features.map((feature) => feature.place_name)
         );
-        setSuggestions(suggestionsData);
       } catch (error) {
         console.error("Error fetching address suggestions:", error);
       }
@@ -119,63 +127,60 @@ const UserLocationMap = ({
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setAddress(suggestion);
+  const handleSuggestionClick = async (suggestion) => {
+    setInputAddress(suggestion);
     setSuggestions([]);
-    forwardGeocode(suggestion);
-  };
 
-  const forwardGeocode = async (selectedAddress) => {
     try {
       const response = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          selectedAddress
+          suggestion
         )}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`
       );
       const { center } = response.data.features[0];
       const [longitude, latitude] = center;
-      setViewState({ longitude, latitude, zoom: zoomLevel }); // Keep the zoom level
-      setMarkerPosition({ longitude, latitude }); // Set marker position when address is selected
-      onLocationSelect(selectedAddress);
+      const location = { longitude, latitude };
+
+      setSelectedLocation(location);
+      setSelectedAddress(suggestion);
+      setViewState((prev) => ({ ...prev, ...location }));
+      onLocationSelect({
+        address: suggestion,
+        coordinates: location,
+      });
     } catch (error) {
       console.error("Error fetching coordinates:", error);
     }
   };
 
   const handleRadioChange = (event) => {
-    setUseCurrentLocation(event.target.value === "current");
-    if (event.target.value === "current" && userLocation) {
-      // Reset to current location
-      setViewState({
+    const useCurrentLoc = event.target.value === "current";
+    setUseCurrentLocation(useCurrentLoc);
+
+    if (useCurrentLoc && userLocation) {
+      setViewState((prev) => ({
+        ...prev,
         longitude: userLocation.longitude,
         latitude: userLocation.latitude,
-        zoom: zoomLevel, // Maintain current zoom level
+      }));
+      setSelectedLocation(userLocation);
+      setSelectedAddress(userAddress);
+      setInputAddress(userAddress);
+      onLocationSelect({
+        address: userAddress,
+        coordinates: userLocation,
       });
-      setSuggestions([]); // Clear any suggestions
-      setAddress(currentAddress); // Reset address to the current address
-      setMarkerPosition({
-        longitude: userLocation.longitude,
-        latitude: userLocation.latitude,
-      }); // Set marker position to current location
-      onLocationSelect(currentAddress); // Set selected location to current address
+    } else {
+      // When switching to "Choose address", keep the current values
+      setInputAddress(selectedAddress || userAddress);
     }
   };
 
   const handleInputFocus = () => {
-    // Clear the input when it gains focus
-    setAddress("");
-    setSuggestions([]); // Clear suggestions when focusing the input
+    setInputAddress("");
+    setSuggestions([]);
   };
 
-  useEffect(() => {
-    if (newCatLatitude && newCatLongitude) {
-      setViewState({
-        longitude: newCatLongitude,
-        latitude: newCatLatitude,
-        zoom: 12, // Adjust zoom level as needed
-      });
-    }
-  }, [newCatCoordinates]);
   return (
     <ContainerDiv>
       <HeaderDiv>
@@ -187,7 +192,7 @@ const UserLocationMap = ({
               checked={useCurrentLocation}
               onChange={handleRadioChange}
             />
-            Use Current Location{" "}
+            Use Current Location
           </RadioLabel>
           <RadioLabel>
             <RadioInput
@@ -202,12 +207,12 @@ const UserLocationMap = ({
 
         <SecondRowDiv>
           {useCurrentLocation ? (
-            <CurrentAddressDiv>{currentAddress}</CurrentAddressDiv>
+            <CurrentAddressDiv>{userAddress}</CurrentAddressDiv>
           ) : (
             <AddressForm onSubmit={(e) => e.preventDefault()}>
               <AddressInput
                 type="text"
-                value={address}
+                value={inputAddress}
                 onChange={handleAddressChange}
                 onFocus={handleInputFocus}
                 placeholder="Type an address"
@@ -238,28 +243,36 @@ const UserLocationMap = ({
         onMove={handleMapMove}
         onClick={handleMapClick}
       >
-        {useCurrentLocation && userLocation ? (
+        {/* Always show a marker at the currently selected location */}
+        {(selectedLocation || userLocation) && (
           <Marker
-            longitude={userLocation.longitude}
-            latitude={userLocation.latitude}
+            longitude={(selectedLocation || userLocation).longitude}
+            latitude={(selectedLocation || userLocation).latitude}
             color="blue"
           />
-        ) : (
-          markerPosition && (
-            <Marker
-              longitude={markerPosition.longitude}
-              latitude={markerPosition.latitude}
-              color="blue"
-            />
-          )
         )}
-        {/* Conditionally render the cat's coordinates on the map */}
-        {newCatLatitude && newCatLongitude && (
-          <Marker
-            longitude={newCatLongitude}
-            latitude={newCatLatitude}
-            color="red" // Different color for cat marker
-          />
+        {/* Only show observed cats and new cat marker if showObservedCats is true */}
+        {showObservedCats && (
+          <>
+            {/* Existing observed cats */}
+            {observedCats.map((cat) => (
+              <Marker
+                key={cat.id}
+                longitude={cat.longitude}
+                latitude={cat.latitude}
+                color="orange"
+              />
+            ))}
+
+            {/* New cat marker */}
+            {newCatLatitude && newCatLongitude && (
+              <Marker
+                longitude={newCatLongitude}
+                latitude={newCatLatitude}
+                color="red"
+              />
+            )}
+          </>
         )}
       </Map>
     </ContainerDiv>
