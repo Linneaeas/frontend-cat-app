@@ -276,7 +276,7 @@ const UserLocationMap = ({
           <Marker
             longitude={newCatLongitude}
             latitude={newCatLatitude}
-            color="red"
+            color="none"
           />
         )}
       </Map>

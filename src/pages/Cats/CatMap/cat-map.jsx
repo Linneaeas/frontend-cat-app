@@ -14,6 +14,7 @@ const CatMapContainer = styled.div`
   height: 80vh;
   width: 100vw;
 `;
+
 // Color mapping for different cat statuses
 const statusColorMapping = {
   "Verkar frisk": "yellow",
@@ -47,11 +48,20 @@ function CatMap() {
     zoom: 10,
   });
 
-  // State for existing and new cats
   const [observedCats, setObservedCats] = useState([]);
   const [newCatCoordinates, setNewCatCoordinates] = useState({
     newCatLatitude: 0,
     newCatLongitude: 0,
+  });
+
+  // Helper function to transform cat data
+  const transformCatData = (catData) => ({
+    id: catData._id,
+    latitude: catData.eventInfo.latitude,
+    longitude: catData.eventInfo.longitude,
+    status: catData.catStatus.overallStatus,
+    date: catData.eventInfo.date,
+    color: statusColorMapping[catData.catStatus.overallStatus] || "gray",
   });
 
   // Fetch existing cats on component mount
@@ -59,15 +69,7 @@ function CatMap() {
     const fetchExistingCats = async () => {
       try {
         const response = await axios.get("http://localhost:3001/cats");
-        // Transform the data to match the format needed for markers
-        const transformedCats = response.data.map((cat) => ({
-          id: cat._id,
-          latitude: cat.eventInfo.latitude,
-          longitude: cat.eventInfo.longitude,
-          status: cat.catStatus.overallStatus,
-          date: cat.eventInfo.date,
-          color: statusColorMapping[cat.catStatus.overallStatus] || "gray",
-        }));
+        const transformedCats = response.data.map(transformCatData);
         setObservedCats(transformedCats);
       } catch (error) {
         console.error("Error fetching existing cats:", error);
@@ -93,13 +95,17 @@ function CatMap() {
 
         // Add the new cat to observed cats
         setObservedCats((prevCats) => {
-          const newCat = {
-            id: update.fullDocument._id,
-            latitude: latitude,
-            longitude: longitude,
-            status: update.fullDocument.status,
-            date: update.fullDocument.eventInfo.date,
-          };
+          const newCat = transformCatData({
+            _id: update.fullDocument._id,
+            eventInfo: {
+              latitude,
+              longitude,
+              date: update.fullDocument.eventInfo.date,
+            },
+            catStatus: {
+              overallStatus: update.fullDocument.catStatus.overallStatus,
+            },
+          });
 
           // Check if cat already exists, if so update it, if not add it
           const existingCatIndex = prevCats.findIndex(
@@ -124,7 +130,6 @@ function CatMap() {
 
   const handleLocationSelect = (location) => {
     console.log("Selected location:", location);
-    // Handle location selection if needed
   };
 
   return (
