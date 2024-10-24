@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles";
-import CatProfileImage from "../../assets/catprofile.jpg";
+import ChattisLogo from "../../assets/ChattisLogo.jpeg";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ function CatProfiles() {
     <ProfileContainer>
       <HeaderContainer>
         <img
-          src={CatProfileImage}
+          src={ChattisLogo}
           alt=" Profile pic"
           style={{
             width: "120px",
