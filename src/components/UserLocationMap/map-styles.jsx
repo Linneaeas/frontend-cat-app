@@ -15,12 +15,14 @@ export const HeaderDiv = styled.div`
 `;
 export const FirstRowDiv = styled.div`
 display: flex;
-justify-content:center;
-gap:2rem;
+justify-content:space-evenly;
+font-size: 14px;
 `;
 export const SecondRowDiv = styled.div`
 display: flex;
 justify-content:center;
+font-size: 14px;
+max-width:100%;
 `;
 
 export const RadioLabel = styled.label`
@@ -33,20 +35,14 @@ export const AddressForm = styled.form`
 `;
 export const AddressInput = styled.input`
 height: 1.7rem;
-width: 20rem;
 border:none;
 background-color: ${colors.orangeLight};
 border-radius: 50px;
 position:relative;
+font-size: 12px;
+width: 17rem;
 `;
-export const SearchButton = styled.button`
-height:1.7rem;
-aspect-ratio:1;
-border-radius: 100px;
-background-color: ${colors.orangeLight};
-color: ${colors.orange};
-margin-left: 1px;
-`;
+
 export const SuggestionsUl = styled.ul`
 position:absolute;
 z-index:100;

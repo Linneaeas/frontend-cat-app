@@ -5,7 +5,7 @@ import { policeReported } from "../cat-data";
 export const ReporterInfo = ({ formData, setFormData }) => {
   return (
     <StepContainer>
-      <h4>6. Information</h4>
+      <h4>5/5. Information</h4>
 
       <label>
         Police reported:

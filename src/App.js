@@ -15,6 +15,7 @@ import LoginModal from "./components/login-modal.jsx";
 import CreateAccount from "./pages/Account/create-account.jsx";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker } from "react-map-gl";
+import styled from "@emotion/styled";
 
 function App() {
   const [isAddCatModalOpen, setAddCatModalOpen] = useState(false);
@@ -35,8 +36,14 @@ function App() {
     setLoginModalOpen(false);
   };
 
+  const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+`;
+
   return (
-    <div>
+    <AppContainer>
       <Global styles={globalStyles} />
       <Router>
         <Navbar onLoginClick={handleLoginClick} />
@@ -57,7 +64,7 @@ function App() {
         <AddSeenCatModal onClose={handleCloseAddCatModal} />
       )}
       {isLoginModalOpen && <LoginModal onClose={handleCloseLoginModal} />}
-    </div>
+    </AppContainer>
   );
 }
 

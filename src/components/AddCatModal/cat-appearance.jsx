@@ -10,7 +10,7 @@ import { ages, genders, furs, colors, patterns } from "../cat-data";
 export const CatAppearance = ({ formData, setFormData }) => {
   return (
     <StepContainer>
-      <h4>3. Appearance</h4>
+      <h4>3/5. Appearance</h4>
 
       <label>
         <FormQuestions>Age:</FormQuestions>

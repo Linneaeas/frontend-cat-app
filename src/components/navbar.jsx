@@ -66,7 +66,9 @@ function Navbar({ onLoginClick }) {
         <NavLink to="/missions">Missions</NavLink>
         <NavLink to="/foster-home">Foster home</NavLink>
         <button onClick={onLoginClick}> Login</button>
-        <img src={pawImage} alt="PAW Logo" style={{ width: "40px" }} />
+        <NavLink to="/">
+          <img src={pawImage} alt="PAW Logo" style={{ width: "40px" }} />{" "}
+        </NavLink>
       </NavLinks>
       {isKatterOpen && <DropdownKatter />}
     </NavbarContainer>

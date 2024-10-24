@@ -33,7 +33,7 @@ export const CatStatus = ({ formData, setFormData }) => {
 
   return (
     <StepContainer>
-      <h4>2. Status</h4>
+      <h4>2/5. Status</h4>
 
       <label>
         <FormQuestions>Where is the cat now?</FormQuestions>
@@ -72,7 +72,7 @@ export const CatStatus = ({ formData, setFormData }) => {
               ...prevData,
               catStatus: {
                 ...prevData.catStatus,
-                overallStatus: e.target.value, // Update overallStatus within catDetails
+                overallStatus: e.target.value,
               },
             }))
           }

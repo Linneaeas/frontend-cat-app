@@ -48,7 +48,7 @@ export const Pictures = ({ formData, setFormData }) => {
 
   return (
     <StepContainer>
-      <h4>4. Pictures</h4>
+      <h4>4/5. Pictures</h4>
 
       {/* Profile Picture */}
       <label>

@@ -10,6 +10,7 @@ import Pictures from "./pictures";
 import { defaultCatData } from "../cat-data";
 import axios from "axios";
 import io from "socket.io-client";
+import { Form } from "../AddCatModal/step-styles";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -30,8 +31,12 @@ const ModalContainer = styled.div`
   padding: 2rem;
   border-radius: 1rem;
   border: 0.5rem solid ${colors.orange};
-  width: fit-content;
+  max-width: fit-content;
+   max-height: 95vh;
+   overflow-y: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin:0.5em;
+
 `;
 
 const CloseButton = styled.button`
@@ -41,20 +46,29 @@ const CloseButton = styled.button`
   background: none;
   color: black;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   padding: 0;
+`;
+
+const ButtonContainer = styled.div`
+display:flex;
+justify-content: center;
 `;
 
 const Button = styled.button`
   padding: 0.5rem 1rem;
   margin: 0.5rem;
    background-color: ${colors.orange}; 
+   color:white;
+   font-weight: bold;
+   border-radius: 20px;
 `;
 const Headline2 = styled.h2`
   position: absolute;  
   top: 10px;          
   left: 10px;
+  font-size: 16px;
 `;
 
 const socket = io("http://localhost:3001");
@@ -97,7 +111,7 @@ const AddSeenCatModal = ({ onClose }) => {
           <ModalContainer>
             <CloseButton onClick={onClose}>X</CloseButton>
             <Headline2>Add a cat</Headline2>
-            <form>
+            <Form>
               {step === 0 && (
                 <EventInfo formData={formData} setFormData={setFormData} />
               )}
@@ -116,15 +130,15 @@ const AddSeenCatModal = ({ onClose }) => {
               {step === 4 && (
                 <ReporterInfo formData={formData} setFormData={setFormData} />
               )}
-            </form>
-            <div>
+            </Form>
+            <ButtonContainer>
               {step > 0 && <Button onClick={prevStep}>Previous</Button>}
               {step < 4 ? (
                 <Button onClick={nextStep}>Next</Button>
               ) : (
                 <Button onClick={handleSubmit}>Submit</Button>
               )}
-            </div>
+            </ButtonContainer>
           </ModalContainer>
         </ModalOverlay>
       ) : (

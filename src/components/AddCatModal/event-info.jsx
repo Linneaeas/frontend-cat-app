@@ -53,7 +53,7 @@ export const EventInfo = ({ formData, setFormData }) => {
 
   return (
     <StepContainer>
-      <h4>1. Event Info</h4>
+      <h5>1/5. Event Info</h5>
       <label>
         <FormQuestions>Date when the cat was seen/found:</FormQuestions>
         <Input
@@ -73,24 +73,13 @@ export const EventInfo = ({ formData, setFormData }) => {
 
       <UserLocationMap
         onLocationSelect={handleLocationSelect}
-        height="300px"
+        height="40vh"
         width="100%"
         showObservedCats={false}
       />
-
       <label>
         <FormQuestions>Chosen address:</FormQuestions>
         <p>{formData.eventInfo.address || "No address selected"}</p>
-        <p>
-          Longitude:{" "}
-          {formatCoordinate(formData.eventInfo.longitude) ||
-            "No longitude selected"}
-        </p>
-        <p>
-          Latitude:{" "}
-          {formatCoordinate(formData.eventInfo.latitude) ||
-            "No latitude selected"}
-        </p>
       </label>
     </StepContainer>
   );

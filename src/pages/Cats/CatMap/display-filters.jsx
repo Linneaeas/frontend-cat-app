@@ -4,9 +4,9 @@ import { colors } from "../../../styles";
 
 const Container = styled.div`
   display: flex;
-  margin: 0.5rem;
-  border-radius: 10px;
+  margin: 3px;
   justify-content: space-between;
+  font-size: 12px;
 `;
 
 const SideColumn = styled.div`
@@ -15,17 +15,17 @@ const SideColumn = styled.div`
 `;
 
 const SideHeadline = styled.span`
- font-size: 14px;
+ font-size: 12px;
 `;
 
 const DisplayContent = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const FilterContent = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 const DropdownContainer = styled.div`
@@ -58,7 +58,7 @@ display: flex;
 
 const DownArrow = styled.div`
   border: solid ${colors.orange};
-  border-width: 0 4px 4px 0;
+  border-width: 0 3px 3px 0;
   display: inline-block;
   margin-bottom: 5px;
   padding: 5px;

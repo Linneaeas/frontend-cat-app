@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 export const StepContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap:0.5rem;
+  max-height: fit-content;
+  
 `;
 
 export const Input = styled.input`
@@ -69,6 +70,11 @@ export const CheckboxInput = styled.input`
 
 export const FormQuestions = styled.p`
 font-weight: bold;
-padding: 0.2rem;
+
+
+`;
+
+export const Form = styled.form`
+
  
 `;

@@ -11,7 +11,7 @@ import WarningSign from "../../../assets/warningsign.png";
 const socket = io("http://localhost:3001");
 
 const CatMapContainer = styled.div`
-  height: 100vh;
+  height: 80vh;
   width: 100vw;
 `;
 // Color mapping for different cat statuses

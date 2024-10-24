@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const colors = {
   orange: "#d86d6e",
@@ -16,6 +17,7 @@ export const globalStyles = css`
   body {
     margin: 0;
     padding: 0;
+    max-height: 100vh;
 
   }
 
@@ -39,7 +41,7 @@ export const globalStyles = css`
     list-style-type: none;
   }
 
-   h1, h2, h4, span {
+   h1, h2, h4, h5, span {
     color: ${colors.orange};
   }
 `;
